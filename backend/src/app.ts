@@ -1,18 +1,12 @@
 import express from "express";
-import cors from "cors";
+import cookieParser from "cookie-parser";
+import authRoutes from "./modules/auth/routes/auth.routes";
 
 const app = express();
 
-// Global middlewares
-app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
-// Health check route
-app.get("/health", (_req, res) => {
-  res.status(200).json({
-    status: "ok",
-    message: "Backend is running"
-  });
-});
+app.use("/api/auth", authRoutes);
 
 export default app;
