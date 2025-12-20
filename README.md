@@ -1,191 +1,113 @@
+# Collaborative Task Manager
 
-# Collaborative Task Manager 🚀
+A full-stack collaborative task management application with real-time updates, drag-and-drop workflow, authentication, and modern UI.
 
-A full-stack **real-time collaborative task management application** built with **React, TypeScript, Tailwind CSS, Node.js, Express, Prisma, PostgreSQL, and Socket.IO**.
+---
 
-This project demonstrates **production-level architecture**, **authentication**, **real-time updates**, and a **clean, modern UI**, designed to meet real-world hiring assignment expectations.
+## 🚀 Live Demo
+
+- **Frontend (Vercel):**  
+  https://collaborative-task-manager-ll1q.vercel.app/
+
+- **Backend API (Render):**  
+  https://collaborative-task-manager-backend-gve1.onrender.com
+
+---
+
+## 🔐 Demo Credentials
+
+Email: demo@taskapp.com  
+Password: demo123
 
 ---
 
 ## ✨ Features
 
-### 🔐 Authentication
-- Secure login using **JWT (HTTP-only cookies)**
-- Protected routes on frontend & backend
-- Persistent sessions
+### Authentication
+- Secure login using JWT and HTTP-only cookies
+- Protected routes with session persistence
 
-### 📋 Task Management
-- Create tasks with title & description
-- Task statuses:
-  - `TODO`
-  - `IN_PROGRESS`
-  - `DONE`
-- Update task status instantly
-- Tasks visible to creator & assignee
+### Task Management
+- Create tasks with title and description
+- Status workflow: TODO → IN PROGRESS → DONE
+- Update status via dropdown or drag-and-drop
 
-### ⚡ Real-Time Collaboration
-- Live task updates using **Socket.IO**
-- Task creation, status updates, and deletions sync instantly across tabs/users
-- No page refresh required
+### Real-Time Collaboration
+- Live task updates with Socket.IO
+- Instant sync across multiple sessions
 
-### 🎨 Modern UI
-- Built with **Tailwind CSS**
-- Kanban-style dashboard
-- Responsive layout
-- Clean, recruiter-friendly design
+### UI / UX
+- React + Tailwind CSS
+- Card-based Kanban layout
+- Responsive design
+- Dark / Light mode toggle
+- Drag-and-drop interaction
 
 ---
 
-## 🧱 Tech Stack
+## 🛠 Tech Stack
 
-### Frontend
-- React + TypeScript
-- Vite
+Frontend:
+- React (Vite)
+- TypeScript
 - Tailwind CSS
+- React Router
 - Axios
 - Socket.IO Client
-- React Router
+- @hello-pangea/dnd
 
-### Backend
-- Node.js + Express
+Backend:
+- Node.js
+- Express
 - TypeScript
 - Prisma ORM
 - PostgreSQL
 - Socket.IO
 - JWT Authentication
-- Cookie-based auth
+
+Deployment:
+- Frontend: Vercel
+- Backend: Render
+- Database: Render PostgreSQL
 
 ---
 
 ## 📁 Project Structure
 
-```
 collaborative-task-manager/
-│
-├── frontend/
-│   ├── src/
-│   │   ├── api/
-│   │   ├── auth/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   └── main.tsx
-│   └── tailwind.config.js
-│
 ├── backend/
 │   ├── src/
-│   │   ├── modules/
-│   │   ├── middleware/
-│   │   ├── sockets/
-│   │   ├── utils/
-│   │   ├── app.ts
-│   │   └── server.ts
-│   └── prisma/
-│
-└── README.md
-```
+│   ├── prisma/
+└── frontend/
+    ├── src/
+    └── vite.config.ts
 
 ---
 
-## ⚙️ Environment Variables
+## ⚙️ Local Setup (Optional)
 
-### Backend (`backend/.env`)
-```
-DATABASE_URL=postgresql://user:password@localhost:5432/taskdb
-JWT_SECRET=your_jwt_secret
-CLIENT_URL=http://localhost:5173
-```
+Backend:
+cd backend  
+npm install  
+npm run dev  
 
----
-
-## 🚀 Setup Instructions
-
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/your-username/collaborative-task-manager.git
-cd collaborative-task-manager
-```
+Frontend:
+cd frontend  
+npm install  
+npm run dev  
 
 ---
 
-### 2️⃣ Backend Setup
-```bash
-cd backend
-npm install
-npx prisma generate
-npx prisma migrate dev
-npm run dev
-```
+## ✅ Status
 
-Backend runs on:  
-👉 `http://localhost:5000`
-
----
-
-### 3️⃣ Frontend Setup
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend runs on:  
-👉 `http://localhost:5173`
-
----
-
-## 🔌 Real-Time Sockets
-
-- Socket authentication is tied to JWT cookies
-- Each user joins a private room
-- Events:
-  - `task:created`
-  - `task:updated`
-  - `task:deleted`
-
----
-
-## 🧪 Testing
-- API tested using Thunder Client / Postman
-- Multi-tab browser testing for real-time sync
-
----
-
-## 🧠 Design Decisions
-
-- **Kanban layout** for clarity and UX
-- **Socket.IO rooms** for user-specific updates
-- **HTTP-only cookies** for secure auth
-- **Separation of concerns** (controllers, services, routes)
-
----
-
-## 📸 Screenshots
-
-> Dashboard UI with real-time task updates  
-> Login page with Tailwind styling  
-> Kanban columns (TODO / IN_PROGRESS / DONE)
-
-*(Screenshots can be added here)*
-
----
-
-## 🏁 Status
-
-✅ Authentication complete  
-✅ Real-time collaboration working  
-✅ Tailwind UI implemented  
-✅ Ready for deployment  
+- Authentication: Completed
+- Real-time updates: Completed
+- Drag & Drop: Completed
+- Dark mode: Completed
+- Deployment: Completed
 
 ---
 
 ## 👤 Author
 
-**Dhawal Sarode**  
-Computer Science Graduate  
-Full Stack Developer  
-
----
-
-## 📄 License
-
-MIT License
+Dhawal Sarode
