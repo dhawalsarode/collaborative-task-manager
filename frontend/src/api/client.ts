@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+const api = axios.create({
+  baseURL: "https://collaborative-task-manager-backend-gve1.onrender.com/api",
   withCredentials: true
 });
+
+export default api;
