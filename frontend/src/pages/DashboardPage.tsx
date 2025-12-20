@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import type { DropResult } from "@hello-pangea/dnd";
 
-import { api } from "../api/client";
+import api from "../api/client";
 import { useAuth } from "../auth/AuthContext";
 import { useSocket } from "../hooks/useSocket";
 import { useTheme } from "../theme/ThemeContext";
@@ -45,11 +45,11 @@ const DashboardPage = () => {
   );
 
   useEffect(() => {
-    api.get("/tasks").then((res) => {
-      setTasks(res.data.tasks);
-      setLoading(false);
-    });
-  }, []);
+  api.get<{ tasks: Task[] }>("/tasks").then((res) => {
+    setTasks(res.data.tasks);
+    setLoading(false);
+  });
+}, []);
 
   const createTask = async (e: React.FormEvent) => {
     e.preventDefault();
