@@ -17,8 +17,7 @@ enum TaskPriority {
 enum TaskStatus {
   TODO
   IN_PROGRESS
-  REVIEW
-  COMPLETED
+  DONE
 }
 
 model User {

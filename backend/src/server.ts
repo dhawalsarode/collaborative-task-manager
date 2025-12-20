@@ -1,8 +1,9 @@
 import http from "http";
+import app from "./app.js";
+import "dotenv/config";
 import { Server as SocketIOServer } from "socket.io";
-import app from "./app";
-import { socketAuth } from "./sockets/socketAuth";
-import { initSocket } from "./utils/socket";
+import { initSocket } from "./utils/socket.js";
+import { socketAuth } from "./sockets/socketAuth.js";
 
 const PORT = process.env.PORT || 5000;
 
@@ -10,7 +11,7 @@ const httpServer = http.createServer(app);
 
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
     credentials: true
   }
 });
@@ -21,8 +22,6 @@ io.use(socketAuth);
 
 io.on("connection", (socket) => {
   console.log("Authenticated socket connected:", socket.id);
-  console.log("User ID:", socket.data.userId);
-
   socket.join(socket.data.userId);
 
   socket.on("disconnect", () => {

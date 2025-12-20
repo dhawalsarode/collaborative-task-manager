@@ -1,5 +1,5 @@
 import { PrismaClient, TaskPriority, TaskStatus } from "@prisma/client";
-import { getIO } from "../../../utils/socket";
+import { getIO } from "../../../utils/socket.js";
 
 const prisma = new PrismaClient();
 

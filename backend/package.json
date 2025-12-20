@@ -2,12 +2,13 @@
   "name": "collaborative-task-manager-backend",
   "version": "1.0.0",
   "description": "Backend service for a collaborative task management platform",
+  "type": "module",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
-  },
+  "dev": "npm run build && node dist/server.js",
+  "build": "tsc",
+  "start": "node dist/server.js"
+},
   "keywords": [],
   "author": "",
   "license": "MIT",
@@ -32,6 +33,7 @@
     "@types/node": "^20.11.30",
     "@types/socket.io": "^3.0.1",
     "prisma": "^6.19.1",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   }

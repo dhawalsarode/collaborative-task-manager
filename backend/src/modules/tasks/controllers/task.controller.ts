@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { TaskPriority, TaskStatus } from "@prisma/client";
-import { TaskService } from "../services/task.service";
+import { TaskService } from "../services/task.service.js";
 
 export class TaskController {
   static async createTask(req: Request, res: Response) {
@@ -20,7 +20,7 @@ export class TaskController {
         description,
         dueDate: new Date(dueDate),
         priority,
-        creatorId: req.user!.id,
+        creatorId: (req as any).user.id,
         assignedToId
       });
 
@@ -32,7 +32,7 @@ export class TaskController {
 
   static async listMyTasks(req: Request, res: Response) {
     try {
-      const tasks = await TaskService.listUserTasks(req.user!.id);
+      const tasks = await TaskService.listUserTasks((req as any).user.id);
       return res.status(200).json({ tasks });
     } catch {
       return res.status(500).json({ message: "Failed to fetch tasks" });
@@ -54,7 +54,7 @@ export class TaskController {
 
       const task = await TaskService.updateTaskStatus(
         taskId,
-        req.user!.id,
+        (req as any).user.id,
         status
       );
 
@@ -74,8 +74,7 @@ export class TaskController {
     try {
       const { taskId } = req.params;
 
-      await TaskService.deleteTask(taskId, req.user!.id);
-
+      await TaskService.deleteTask(taskId, (req as any).user.id);
       return res.status(204).send();
     } catch (error: any) {
       if (error.message === "TASK_NOT_FOUND") {
