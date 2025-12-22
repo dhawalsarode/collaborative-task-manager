@@ -12,9 +12,7 @@ import { socketAuth } from "./sockets/socketAuth.js";
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 5000;
 
-/* =====================================
-   RUN MIGRATIONS (FREE TIER FIX)
-===================================== */
+
 function runMigrations() {
   try {
     console.log("⏳ Running Prisma migrations...");
@@ -26,9 +24,7 @@ function runMigrations() {
   }
 }
 
-/* =====================================
-   DEMO USER CREATION
-===================================== */
+
 async function ensureDemoUser() {
   const email = "demo@taskapp.com";
   const password = "demo123";
@@ -54,9 +50,7 @@ async function ensureDemoUser() {
   }
 }
 
-/* =====================================
-   START SERVER
-===================================== */
+
 async function startServer() {
   runMigrations();
   await ensureDemoUser();
@@ -65,9 +59,13 @@ async function startServer() {
 
   const io = new SocketIOServer(httpServer, {
     cors: {
-      origin: process.env.CLIENT_URL || "http://localhost:5173",
-      credentials: true,
-    },
+  origin: [
+    "https://collaborative-task-manager-ll1q.vercel.app",
+    "http://localhost:5173"
+  ],
+  credentials: true
+          }
+,
   });
 
   initSocket(io);
