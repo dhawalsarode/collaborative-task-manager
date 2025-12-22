@@ -58,15 +58,15 @@ async function startServer() {
   const httpServer = http.createServer(app);
 
   const io = new SocketIOServer(httpServer, {
-    cors: {
-  origin: [
-    "https://collaborative-task-manager-ll1q.vercel.app",
-    "http://localhost:5173"
-  ],
-  credentials: true
-          }
-,
-  });
+  cors: {
+    origin: [
+      "https://collaborative-task-manager-ll1q.vercel.app",
+      "http://localhost:5173"
+    ],
+    credentials: true
+  }
+});
+
 
   initSocket(io);
   io.use(socketAuth);

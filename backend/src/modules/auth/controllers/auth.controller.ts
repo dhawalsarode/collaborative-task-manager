@@ -21,11 +21,11 @@ export class AuthController {
     const { token, user } = await AuthService.login({ email, password });
 
     res.cookie("access_token", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "none",
-  maxAge: 60 * 60 * 1000
-});
+      httpOnly: true,
+      secure: true,        
+      sameSite: "none",    
+      maxAge: 60 * 60 * 1000
+    });
 
 
     return res.json({ message: "Login successful", user });
