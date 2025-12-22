@@ -12,8 +12,17 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+
   "dependencies": {
     "@prisma/client": "^6.19.1",
+
+    "@types/express": "^4.17.25",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.11.30",
+
     "axios": "^1.13.2",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
@@ -24,19 +33,14 @@
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
   },
+
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
-    "@types/cookie-parser": "^1.4.10",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.25",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^20.11.30",
-    "@types/socket.io": "^3.0.1",
     "prisma": "^6.19.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   },
+
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   }
