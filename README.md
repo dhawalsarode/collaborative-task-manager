@@ -21,6 +21,12 @@ Password: demo123
 
 ---
 
+## 🖥 Dashboard Preview
+
+![Dashboard Dark Mode](./screenshots/dashboard-dark.png)
+
+---
+
 ## ✨ Features
 
 ### Authentication
