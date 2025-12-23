@@ -8,12 +8,15 @@ import { useSocket } from "../hooks/useSocket";
 import { useTheme } from "../theme/ThemeContext";
 
 type Status = "TODO" | "IN_PROGRESS" | "DONE";
+type Priority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
 
 interface Task {
   id: string;
   title: string;
   description: string;
   status: Status;
+  priority: Priority;
+  dueDate: string;
 }
 
 const columns: Status[] = ["TODO", "IN_PROGRESS", "DONE"];
@@ -27,11 +30,18 @@ const labels: Record<Status, string> = {
 const DashboardPage = () => {
   const { user } = useAuth();
   const { toggleTheme, theme } = useTheme();
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
 
+  // 🔹 FILTER & SORT STATE (NEW)
+  const [statusFilter, setStatusFilter] = useState<Status | "ALL">("ALL");
+  const [priorityFilter, setPriorityFilter] = useState<Priority | "ALL">("ALL");
+  const [sortOrder, setSortOrder] = useState<"ASC" | "DESC">("ASC");
+
+  // 🔹 SOCKET UPDATES (UNCHANGED)
   useSocket(
     (task) =>
       setTasks((prev) =>
@@ -44,13 +54,27 @@ const DashboardPage = () => {
     (id) => setTasks((prev) => prev.filter((t) => t.id !== id))
   );
 
-  useEffect(() => {
-  api.get<{ tasks: Task[] }>("/tasks").then((res) => {
+  // 🔹 LOAD TASKS WITH FILTERS + SORT
+  const loadTasks = async () => {
+    setLoading(true);
+
+    const params: any = {};
+    if (statusFilter !== "ALL") params.status = statusFilter;
+    if (priorityFilter !== "ALL") params.priority = priorityFilter;
+
+    params.sortBy = "dueDate";
+    params.order = sortOrder;
+
+    const res = await api.get<{ tasks: Task[] }>("/tasks", { params });
     setTasks(res.data.tasks);
     setLoading(false);
-  });
-}, []);
+  };
 
+  useEffect(() => {
+    loadTasks();
+  }, [statusFilter, priorityFilter, sortOrder]);
+
+  // 🔹 CREATE TASK
   const createTask = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
@@ -67,6 +91,7 @@ const DashboardPage = () => {
     setDescription("");
   };
 
+  // 🔹 UPDATE STATUS
   const updateStatus = async (id: string, status: Status) => {
     await api.patch(`/tasks/${id}/status`, { status });
   };
@@ -82,6 +107,7 @@ const DashboardPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
+        {/* HEADER */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <button
@@ -92,6 +118,42 @@ const DashboardPage = () => {
           </button>
         </div>
 
+        {/* FILTERS */}
+        <div className="flex flex-wrap gap-4 mb-6">
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value as any)}
+            className="border px-3 py-2 rounded"
+          >
+            <option value="ALL">All Status</option>
+            <option value="TODO">To Do</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="DONE">Done</option>
+          </select>
+
+          <select
+            value={priorityFilter}
+            onChange={(e) => setPriorityFilter(e.target.value as any)}
+            className="border px-3 py-2 rounded"
+          >
+            <option value="ALL">All Priority</option>
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+            <option value="URGENT">Urgent</option>
+          </select>
+
+          <select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value as any)}
+            className="border px-3 py-2 rounded"
+          >
+            <option value="ASC">Due Date ↑</option>
+            <option value="DESC">Due Date ↓</option>
+          </select>
+        </div>
+
+        {/* CREATE TASK */}
         <form
           onSubmit={createTask}
           className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6 flex gap-4"
@@ -115,6 +177,7 @@ const DashboardPage = () => {
           </button>
         </form>
 
+        {/* TASK BOARD */}
         {loading ? (
           <p className="text-center text-gray-400">Loading tasks…</p>
         ) : (
@@ -157,6 +220,9 @@ const DashboardPage = () => {
                                   </h3>
                                   <p className="text-sm opacity-80">
                                     {task.description}
+                                  </p>
+                                  <p className="text-xs mt-1 opacity-60">
+                                    Priority: {task.priority}
                                   </p>
                                 </div>
                               )}
