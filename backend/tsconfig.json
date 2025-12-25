@@ -11,9 +11,10 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
 
+    "types": ["node", "jest"],   
+    "isolatedModules": true,    
     "skipLibCheck": true
   },
-
   "include": ["src"],
-  "exclude": ["prisma/seed.ts"]
+  "exclude": ["node_modules", "dist"]
 }

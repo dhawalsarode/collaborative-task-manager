@@ -1,119 +1,145 @@
+
 # Collaborative Task Manager
 
-A full-stack collaborative task management application with real-time updates, drag-and-drop workflow, authentication, and modern UI.
+A full-stack **Collaborative Task Management** application inspired by modern tools like Trello and Jira.  
+It supports **real-time collaboration**, **task assignment**, **drag-and-drop Kanban boards**, **notifications**, and **dark/light mode**.
 
 ---
 
 ## 🚀 Live Demo
 
-- **Frontend (Vercel):**  
-  https://collaborative-task-manager-ll1q.vercel.app/
+### Frontend (Vercel)
+👉 https://collaborative-task-manager-ll1q.vercel.app
 
-- **Backend API (Render):**  
-  https://collaborative-task-manager-backend-gve1.onrender.com
+### Backend API (Render)
+👉 https://collaborative-task-manager-backend-gve1.onrender.com
 
----
-
-## 🔐 Demo Credentials
-
-Email: demo@taskapp.com  
-Password: demo123
+> ℹ️ These are the **current production links**.  
+> Future GitHub pushes will automatically redeploy to the same URLs.
 
 ---
 
-## 🖥 Dashboard Preview
+## 🧩 Features
 
-![Dashboard Dark Mode](./screenshots/dashboard-dark.png)
+### ✅ Authentication
+- User registration & login
+- Secure JWT-based authentication (HTTP-only cookies)
+- Persistent sessions
 
----
+### ✅ Task Management (Full CRUD)
+- Create, edit, delete tasks
+- Assign tasks to registered users
+- Set **priority**: Low / Medium / High / Urgent
+- Set **status**: To Do / In Progress / Review / Completed
+- Due date with **date & time**
+- Overdue task detection
 
-## ✨ Features
+### ✅ Kanban Board
+- Drag & drop tasks between columns
+- Optimistic UI updates
+- Real-time sync across users
 
-### Authentication
-- Secure login using JWT and HTTP-only cookies
-- Protected routes with session persistence
+### ✅ Notifications
+- In-app notifications when:
+  - A task is assigned to you
+  - A task is updated
+- Live updates using **Socket.IO**
+- Notification panel with timestamps
 
-### Task Management
-- Create tasks with title and description
-- Status workflow: TODO → IN PROGRESS → DONE
-- Update status via dropdown or drag-and-drop
-
-### Real-Time Collaboration
-- Live task updates with Socket.IO
-- Instant sync across multiple sessions
-
-### UI / UX
-- React + Tailwind CSS
-- Card-based Kanban layout
-- Responsive design
-- Dark / Light mode toggle
-- Drag-and-drop interaction
-
----
-
-## 🛠 Tech Stack
-
-Frontend:
-- React (Vite)
-- TypeScript
-- Tailwind CSS
-- React Router
-- Axios
-- Socket.IO Client
-- @hello-pangea/dnd
-
-Backend:
-- Node.js
-- Express
-- TypeScript
-- Prisma ORM
-- PostgreSQL
-- Socket.IO
-- JWT Authentication
-
-Deployment:
-- Frontend: Vercel
-- Backend: Render
-- Database: Render PostgreSQL
+### ✅ UI / UX
+- Clean professional UI
+- Dark & Light mode toggle
+- Responsive layout
+- Polished icons (Lucide React)
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Tech Stack
 
+### Frontend
+- **React + TypeScript**
+- **Vite**
+- **Tailwind CSS**
+- **React Query (TanStack)**
+- **Socket.IO Client**
+- **React Hook Form + Zod**
+- **Lucide React Icons**
+
+### Backend
+- **Node.js + Express**
+- **TypeScript**
+- **Prisma ORM**
+- **PostgreSQL**
+- **JWT Authentication**
+- **Socket.IO**
+
+### Deployment
+- **Frontend**: Vercel
+- **Backend**: Render
+- **Database**: PostgreSQL (Render)
+
+---
+
+## 📸 Screenshots
+
+Screenshots are available in the `/screenshots` folder:
+
+- `dashboard-light.png`
+- `dashboard-dark.png`
+
+---
+
+## 📂 Project Structure
+
+```
 collaborative-task-manager/
-├── backend/
-│   ├── src/
-│   ├── prisma/
-└── frontend/
-    ├── src/
-    └── vite.config.ts
+├── frontend/        # React frontend
+├── backend/         # Express + Prisma backend
+├── screenshots/     # UI screenshots
+└── README.md
+```
 
 ---
 
-## ⚙️ Local Setup (Optional)
+## ⚙️ Local Development
 
-Backend:
-cd backend  
-npm install  
-npm run dev  
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/dhawalsarode/collaborative-task-manager.git
+cd collaborative-task-manager
+```
 
-Frontend:
-cd frontend  
-npm install  
-npm run dev  
+### 2️⃣ Frontend setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### 3️⃣ Backend setup
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+> Make sure to configure `.env` files for backend (DB, JWT, etc.)
 
 ---
 
-## ✅ Status
+## 🧪 Status
 
-- Authentication: Completed
-- Real-time updates: Completed
-- Drag & Drop: Completed
-- Dark mode: Completed
-- Deployment: Completed
+✅ Core features complete  
+✅ Production deployed  
 
 ---
 
-## 👤 Author
+## 👨‍💻 Author
 
-Dhawal Sarode
+**Dhawal Sarode**  
+- GitHub: https://github.com/dhawalsarode  
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.

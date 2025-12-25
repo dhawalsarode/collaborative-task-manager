@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/client";
-import { useAuth } from "../auth/AuthContext";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const navigate = useNavigate();
-  const { setUser } = useAuth();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,11 +15,10 @@ const LoginPage = () => {
     setError("");
 
     try {
-      const res = await api.post("/auth/login", { email, password });
-      setUser(res.data.user);
-      navigate("/");
+      await api.post("/auth/register", { name, email, password });
+      navigate("/login");
     } catch {
-      setError("Invalid email or password");
+      setError("Registration failed");
     }
   };
 
@@ -30,9 +28,17 @@ const LoginPage = () => {
         onSubmit={submit}
         className="bg-white p-6 rounded-lg shadow w-full max-w-sm"
       >
-        <h1 className="text-2xl font-bold mb-4">Login</h1>
+        <h1 className="text-2xl font-bold mb-4">Create Account</h1>
 
         {error && <p className="text-red-600 mb-3">{error}</p>}
+
+        <input
+          className="w-full border p-2 mb-3 rounded"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
 
         <input
           className="w-full border p-2 mb-3 rounded"
@@ -52,13 +58,13 @@ const LoginPage = () => {
         />
 
         <button className="w-full bg-blue-600 text-white py-2 rounded">
-          Login
+          Register
         </button>
 
         <p className="text-sm mt-4 text-center">
-          Don’t have an account?{" "}
-          <Link to="/register" className="text-blue-600 underline">
-            Register
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 underline">
+            Login
           </Link>
         </p>
       </form>
@@ -66,4 +72,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

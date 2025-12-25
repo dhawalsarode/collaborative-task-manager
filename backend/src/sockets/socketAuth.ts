@@ -3,21 +3,20 @@ import jwt from "jsonwebtoken";
 
 interface JwtPayload {
   userId: string;
+  email: string;
 }
 
-export const socketAuth = (socket: Socket, next: (err?: Error) => void) => {
+export function socketAuth(socket: Socket, next: (err?: Error) => void) {
   try {
-    const cookieHeader = socket.handshake.headers.cookie;
-
-    if (!cookieHeader) {
+    const cookie = socket.handshake.headers.cookie;
+    if (!cookie) {
       return next(new Error("Authentication required"));
     }
 
-    const cookies = Object.fromEntries(
-      cookieHeader.split("; ").map((c) => c.split("="))
-    );
-
-    const token = cookies.access_token;
+    const token = cookie
+      .split("; ")
+      .find((c) => c.startsWith("access_token="))
+      ?.split("=")[1];
 
     if (!token) {
       return next(new Error("Authentication required"));
@@ -25,13 +24,17 @@ export const socketAuth = (socket: Socket, next: (err?: Error) => void) => {
 
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET as string
+      process.env.JWT_SECRET!
     ) as JwtPayload;
 
-    socket.data.userId = decoded.userId;
+    socket.data.user = {
+      id: decoded.userId,
+      email: decoded.email,
+    };
 
     next();
   } catch {
     next(new Error("Invalid or expired token"));
   }
-};
+}
+

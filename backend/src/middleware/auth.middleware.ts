@@ -3,35 +3,46 @@ import jwt from "jsonwebtoken";
 
 interface JwtPayload {
   userId: string;
+  email: string;
+  name?: string;
 }
 
-export const authenticate = (
+declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        id: string;
+        email?: string;
+        name?: string;
+      };
+    }
+  }
+}
+
+export function authenticate(
   req: Request,
   res: Response,
   next: NextFunction
-) => {
-  const token = req.cookies?.access_token;
-
-  if (!token) {
-    return res.status(401).json({
-      message: "Authentication required"
-    });
-  }
-
+) {
   try {
+    const token = req.cookies?.access_token;
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET as string
+      process.env.JWT_SECRET!
     ) as JwtPayload;
 
     req.user = {
-      id: decoded.userId
+      id: decoded.userId,
+      email: decoded.email,
+      name: decoded.name,
     };
 
     next();
   } catch {
-    return res.status(401).json({
-      message: "Invalid or expired token"
-    });
+    return res.status(401).json({ message: "Unauthorized" });
   }
-};
+}

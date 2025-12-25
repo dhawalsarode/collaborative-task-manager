@@ -4,11 +4,8 @@ import { useAuth } from "./AuthContext";
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const { user, loading } = useAuth();
 
-  if (loading) return null;
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  if (loading) return <div className="p-6">Loading...</div>;
+  if (!user) return <Navigate to="/login" replace />;
 
   return children;
 };
