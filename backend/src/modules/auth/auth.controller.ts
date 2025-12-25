@@ -18,10 +18,11 @@ export class AuthController {
       const { user, token } = await AuthService.login(email, password);
 
       res.cookie("access_token", token, {
-        httpOnly: true,
-        sameSite: "lax",
-        secure: false,
-      });
+      httpOnly: true,
+      sameSite: "none",  
+      secure: true,       
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
       res.json({ user });
     } catch {
@@ -42,7 +43,6 @@ export class AuthController {
     res.json({ users });
   }
 
-  /* ✅ REQUIRED FOR LOGOUT */
   static async logout(req: Request, res: Response) {
     res.clearCookie("access_token");
     res.json({ message: "Logged out" });
