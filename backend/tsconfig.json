@@ -11,8 +11,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
 
-    "types": ["node", "jest"],   
-    "isolatedModules": true,    
+    "types": ["node"],
+    "isolatedModules": true,
     "skipLibCheck": true
   },
   "include": ["src"],
