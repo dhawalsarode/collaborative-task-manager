@@ -68,12 +68,21 @@ export class TaskService {
     }>,
     io?: Server
   ) {
+    const updateData: Record<string, any> = {};
+
+    if (data.title !== undefined) updateData.title = data.title;
+    if (data.description !== undefined)
+      updateData.description = data.description;
+    if (data.status !== undefined) updateData.status = data.status;
+    if (data.priority !== undefined) updateData.priority = data.priority;
+    if (data.assignedToId !== undefined)
+      updateData.assignedToId = data.assignedToId;
+    if (data.dueDate !== undefined)
+      updateData.dueDate = new Date(data.dueDate);
+
     const task = await prisma.task.update({
       where: { id },
-      data: {
-        ...data,
-        ...(data.dueDate && { dueDate: new Date(data.dueDate) }),
-      },
+      data: updateData,
       include: {
         assignee: {
           select: { id: true, name: true, email: true },
