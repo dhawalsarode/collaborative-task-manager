@@ -1,57 +1,35 @@
 import { prisma } from "../../prisma.js";
+import { TaskStatus } from "@prisma/client";
 
 export class TaskRepository {
-  static create(data: any) {
-    return prisma.task.create({
-      data,
-      include: { creator: true, assignee: true }
-    });
-  }
-
-  static findAll() {
+  static async findAll() {
     return prisma.task.findMany({
-      orderBy: { dueDate: "asc" },
-      include: { creator: true, assignee: true }
+      orderBy: { createdAt: "desc" },
+      include: {
+        assignee: {
+          select: { id: true, name: true, email: true },
+        },
+        creator: {
+          select: { id: true, name: true, email: true },
+        },
+      },
     });
   }
 
-  static findAssigned(userId: string) {
-    return prisma.task.findMany({
-      where: { assignedToId: userId },
-      orderBy: { dueDate: "asc" }
-    });
-  }
-
-  static findCreated(userId: string) {
-    return prisma.task.findMany({
-      where: { creatorId: userId },
-      orderBy: { dueDate: "asc" }
-    });
-  }
-
-  static findOverdue(userId: string) {
+  static async findOverdue() {
     return prisma.task.findMany({
       where: {
-        assignedToId: userId,
+        status: { not: TaskStatus.COMPLETED },
         dueDate: { lt: new Date() },
-        status: { not: "COMPLETED" }
-      }
+      },
+      include: {
+        assignee: {
+          select: { id: true, name: true, email: true },
+        },
+        creator: {
+          select: { id: true, name: true, email: true },
+        },
+      },
     });
-  }
-
-  static findById(id: string) {
-    return prisma.task.findUnique({ where: { id } });
-  }
-
-  static update(id: string, data: any) {
-    return prisma.task.update({
-      where: { id },
-      data,
-      include: { creator: true, assignee: true }
-    });
-  }
-
-  static delete(id: string) {
-    return prisma.task.delete({ where: { id } });
   }
 }
