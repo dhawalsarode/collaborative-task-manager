@@ -13,14 +13,12 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "https://collaborative-task-manager-ll1q.vercel.app",
-  "https://collaborative-task-manager-l-git-f71fd9-dhawal-sarodes-projects.vercel.app",
-  "https://collaborative-task-manager-ll1q-fdxhfqvie.vercel.app",
+  "https://collaborative-task-manager-five-self.vercel.app",
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow non-browser requests (Postman, curl, mobile apps)
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
