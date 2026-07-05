@@ -1,5 +1,6 @@
 import { prisma } from "../../prisma.js";
 import { Server } from "socket.io";
+import { NotificationService } from "../notifications/notification.service.js";
 
 export class TaskService {
   /* ================= CREATE ================= */
@@ -9,11 +10,11 @@ export class TaskService {
       description: string;
       dueDate: string;
       priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
-      assignedToId: string;
+      assignedToId: string | null;
       creatorId: string;
     },
     io?: Server
-  ) {
+  ) { 
     const task = await prisma.task.create({
       data: {
         title: data.title,
@@ -32,7 +33,16 @@ export class TaskService {
         },
       },
     });
-
+    if (
+      task.assignedToId &&
+      task.assignedToId !== task.creatorId
+    ) {
+      console.log("Creating notification for:", task.assignedToId);
+      await NotificationService.create(
+        task.assignedToId,
+        `${task.creator.name} assigned you a task: "${task.title}"`
+      );
+    }
     if (io) {
       io.emit("task:created", task);
     }
@@ -41,19 +51,32 @@ export class TaskService {
   }
 
   /* ================= LIST ================= */
-  static async list() {
+  static async list(userId: string) {
     return prisma.task.findMany({
-      orderBy: { createdAt: "desc" },
-      include: {
-        assignee: {
-          select: { id: true, name: true, email: true },
-        },
-        creator: {
-          select: { id: true, name: true, email: true },
-        },
+  where: {
+    OR: [
+      { creatorId: userId },
+      { assignedToId: userId },
+    ],
+  },
+  orderBy: { createdAt: "desc" },
+  include: {
+    assignee: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
       },
-    });
-  }
+    },
+    creator: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    },
+  },
+});}
 
   /* ================= UPDATE ================= */
   static async update(
@@ -63,7 +86,7 @@ export class TaskService {
       description: string;
       status: "TODO" | "IN_PROGRESS" | "REVIEW" | "COMPLETED";
       priority: "LOW" | "MEDIUM" | "HIGH" | "URGENT";
-      assignedToId: string;
+      assignedToId: string | null;
       dueDate: string;
     }>,
     io?: Server
@@ -92,7 +115,15 @@ export class TaskService {
         },
       },
     });
-
+    if (
+        task.assignedToId &&
+        task.assignedToId !== task.creatorId
+      ) {
+        await NotificationService.create(
+          task.assignedToId,
+          `${task.creator.name} assigned you a task: "${task.title}"`
+        );
+      }
     if (io) {
       io.emit("task:updated", task);
     }

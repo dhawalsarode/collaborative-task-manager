@@ -63,6 +63,7 @@ const CreateTaskModal = ({ onClose, task }: Props) => {
   const onSubmit = async (values: FormValues) => {
     const payload = {
       ...values,
+      assignedToId: values.assignedToId || null,
       dueDate: new Date(values.dueDate).toISOString(),
     };
 

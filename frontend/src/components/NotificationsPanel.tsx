@@ -17,8 +17,7 @@ const NotificationsPanel = ({ notifications }: { notifications: any[] }) => {
           className="bg-white dark:bg-gray-800 border rounded p-3"
         >
           <p className="text-sm text-gray-900 dark:text-gray-100">
-            You were assigned <b>{n.taskTitle}</b> by{" "}
-            <b>{n.fromUserName}</b>
+            {n.message}
           </p>
           <p className="text-xs text-gray-500 mt-1">
             {new Date(n.createdAt).toLocaleString()}

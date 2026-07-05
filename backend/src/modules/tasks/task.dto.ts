@@ -5,7 +5,7 @@ export const CreateTaskDto = z.object({
   description: z.string(),
   dueDate: z.string().datetime(),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"]),
-  assignedToId: z.string()
+  assignedToId: z.string().uuid().nullable().optional()
 });
 
 export const UpdateTaskDto = z.object({
@@ -14,5 +14,5 @@ export const UpdateTaskDto = z.object({
   dueDate: z.string().datetime().optional(),
   priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"]).optional(),
   status: z.enum(["TODO", "IN_PROGRESS", "REVIEW", "COMPLETED"]).optional(),
-  assignedToId: z.string().optional()
+  assignedToId: z.string().uuid().nullable().optional()
 });

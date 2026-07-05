@@ -43,7 +43,7 @@ export interface Task {
   creatorId: string;
   assignedToId?: string | null;
   creator?: User | null;
-  assignedTo?: User | null;
+  assignee?: User | null;
 }
 
 /* ================= API ================= */
@@ -106,12 +106,20 @@ const DashboardPage = () => {
   /* ================= SOCKET ================= */
 
   useEffect(() => {
+    socket.connect();
+
     socket.on("task:created", () =>
-      queryClient.invalidateQueries({ queryKey: ["tasks", "notifications"] })
+      queryClient.invalidateQueries({ queryKey: ["tasks"] })
     );
+
+    socket.on("task:created", () =>
+      queryClient.invalidateQueries({ queryKey: ["notifications"] })
+    );
+
     socket.on("task:updated", () =>
       queryClient.invalidateQueries({ queryKey: ["tasks"] })
     );
+
     socket.on("task:deleted", () =>
       queryClient.invalidateQueries({ queryKey: ["tasks"] })
     );
@@ -120,9 +128,9 @@ const DashboardPage = () => {
       socket.off("task:created");
       socket.off("task:updated");
       socket.off("task:deleted");
+      socket.disconnect();
     };
   }, [queryClient]);
-
   /* ================= FILTER ================= */
 
   const filteredTasks = useMemo(() => {
@@ -292,8 +300,7 @@ const DashboardPage = () => {
                               </p>
 
                               <div className="text-xs mt-2">
-                                Assigned to:{" "}
-                                <b>{t.assignedTo?.name ?? "Unassigned"}</b>
+                                Assigned to: <b>{t.assignee?.name ?? "Unassigned"}</b>
                               </div>
 
                               <div className="flex gap-2 mt-2 text-xs">

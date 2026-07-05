@@ -28,9 +28,15 @@ export class TaskController {
   }
 
   static async list(req: Request, res: Response) {
-    const tasks = await TaskService.list();
-    return res.json(tasks);
+  const userId = req.user?.id;
+
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized" });
   }
+
+  const tasks = await TaskService.list(userId);
+  return res.json(tasks);
+}
 
   static async update(req: Request, res: Response) {
     try {
