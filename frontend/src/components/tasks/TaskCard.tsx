@@ -7,7 +7,7 @@ import {
   Flag,
 } from "lucide-react";
 
-import { Task } from "../pages/DashboardPage";
+import { Task } from "../../types/task";
 
 const PRIORITY_COLORS = {
   LOW: "bg-slate-100 text-slate-700",

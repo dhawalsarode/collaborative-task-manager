@@ -4,7 +4,10 @@ import {
 } from "@hello-pangea/dnd";
 
 import TaskCard from "./TaskCard";
-import { Task, TaskStatus } from "../pages/DashboardPage";
+import {
+  Task,
+  TaskStatus,
+} from "../../types/task";
 
 interface Props {
   status: TaskStatus;
