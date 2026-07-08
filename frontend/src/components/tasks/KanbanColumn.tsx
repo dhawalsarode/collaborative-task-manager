@@ -90,17 +90,22 @@ export default function KanbanColumn({
           {/* Tasks */}
           <div className="flex-1 p-4 space-y-4">
             {tasks.map((task, index) => (
-              <Draggable
-                key={task.id}
-                draggableId={task.id}
-                index={index}
-              >
-                {(d) => (
-                  <div
-                    ref={d.innerRef}
-                    {...d.draggableProps}
-                    {...d.dragHandleProps}
+                  <Draggable
+                    key={task.id}
+                    draggableId={task.id}
+                    index={index}
                   >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={{
+                          ...provided.draggableProps.style,
+                          opacity: snapshot.isDragging ? 0.95 : 1,
+                          transform: provided.draggableProps.style?.transform,
+                        }}
+                      >
                     <TaskCard
                       task={task}
                       onEdit={onEdit}

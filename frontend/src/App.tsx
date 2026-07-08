@@ -10,6 +10,8 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 
 import AppShell from "./components/layout/AppShell";
 
+import AnalyticsPage from "./pages/AnalyticsPage";
+
 const App = () => {
   return (
     <Routes>
@@ -40,12 +42,12 @@ const App = () => {
             element={<TasksPage />}
           />
 
-          {/* Future */}
-
           <Route
             path="/analytics"
-            element={<div className="p-8">Analytics</div>}
+            element={<AnalyticsPage />}
           />
+
+          {/* Future */}
 
           <Route
             path="/settings"

@@ -8,6 +8,7 @@ import TaskCard from "../components/tasks/TaskCard";
 import KanbanColumn from "../components/tasks/KanbanColumn";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
 import { useUpdateTask } from "../hooks/useUpdateTask";
+import { useDeleteTask } from "../hooks/useDeleteTask";
 
 export default function TasksPage() {
   const { data: tasks = [], isLoading } = useTasks();
@@ -16,20 +17,20 @@ export default function TasksPage() {
   const [showModal, setShowModal] = useState(false);
   const [selectedTask, setSelectedTask] = useState<any>(null);
   const updateTask = useUpdateTask();
+  const deleteTask = useDeleteTask();
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
-    if (
-      result.destination.droppableId ===
-      result.source.droppableId
-    )
-      return;
+    const from = result.source.droppableId;
+    const to = result.destination.droppableId;
+
+    if (from === to) return;
 
     updateTask.mutate({
       id: result.draggableId,
       data: {
-        status: result.destination.droppableId as any,
+        status: to as any,
       },
     });
   };
@@ -147,7 +148,9 @@ export default function TasksPage() {
             setShowModal(true);
           }}
           onDelete={(id) => {
-            console.log("Delete task:", id);
+            if (window.confirm("Delete this task?")) {
+              deleteTask.mutate(id);
+            }
           }}
         />
 
@@ -162,7 +165,9 @@ export default function TasksPage() {
             setShowModal(true);
           }}
           onDelete={(id) => {
-            console.log("Delete task:", id);
+            if (window.confirm("Delete this task?")) {
+              deleteTask.mutate(id);
+            }
           }}
         />
 
@@ -177,7 +182,9 @@ export default function TasksPage() {
             setShowModal(true);
           }}
           onDelete={(id) => {
-            console.log("Delete task:", id);
+            if (window.confirm("Delete this task?")) {
+              deleteTask.mutate(id);
+            }
           }}
         />
 
@@ -192,7 +199,9 @@ export default function TasksPage() {
             setShowModal(true);
           }}
           onDelete={(id) => {
-            console.log("Delete task:", id);
+            if (window.confirm("Delete this task?")) {
+              deleteTask.mutate(id);
+            }
           }}
         />
 

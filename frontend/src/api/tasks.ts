@@ -1,10 +1,9 @@
 import api from "./client";
-
 import { Task } from "../types/task";
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const res = await api.get("/tasks");
-  return res.data.tasks;
+  return res.data;
 };
 
 export const createTask = (data: Partial<Task>) =>
