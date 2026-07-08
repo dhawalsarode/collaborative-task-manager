@@ -1,26 +1,19 @@
 import api from "./client";
 
-export type TaskStatus = "TODO" | "IN_PROGRESS" | "REVIEW" | "COMPLETED";
-export type TaskPriority = "LOW" | "MEDIUM" | "HIGH" | "URGENT";
+import { Task } from "../types/task";
 
-export interface Task {
-  id: string;
-  title: string;
-  description: string;
-  dueDate: string;
-  status: TaskStatus;
-  priority: TaskPriority;
-  creatorId: string;
-  assignedToId: string;
-}
-
-export const fetchTasks = async () => {
+export const fetchTasks = async (): Promise<Task[]> => {
   const res = await api.get("/tasks");
   return res.data.tasks;
 };
 
-export const createTask = (data: any) =>
+export const createTask = (data: Partial<Task>) =>
   api.post("/tasks", data);
 
-export const updateTask = (id: string, data: any) =>
-  api.patch(`/tasks/${id}`, data);
+export const updateTask = (
+  id: string,
+  data: Partial<Task>
+) => api.patch(`/tasks/${id}`, data);
+
+export const deleteTask = (id: string) =>
+  api.delete(`/tasks/${id}`);

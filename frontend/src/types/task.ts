@@ -30,14 +30,15 @@ export interface Task {
   description: string;
 
   dueDate: string;
-  createdAt: string;
-  updatedAt: string;
 
-  priority: TaskPriority;
   status: TaskStatus;
+  priority: TaskPriority;
 
   creatorId: string;
-  assignedToId?: string | null;
+  assignedToId: string | null;
+
+  createdAt?: string;
+  updatedAt?: string;
 
   creator?: User | null;
   assignee?: User | null;
