@@ -43,6 +43,61 @@ export class AuthController {
     res.json({ users });
   }
 
+  static async updateProfile(req: Request, res: Response) {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    const { name } = req.body;
+
+    const user = await AuthService.updateProfile(
+      userId,
+      name
+    );
+
+    res.json({ user });
+  } catch (err: any) {
+    res.status(400).json({
+      message: err.message,
+    });
+  }
+}
+
+static async changePassword(req: Request, res: Response) {
+  try {
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
+    const {
+      currentPassword,
+      newPassword,
+    } = req.body;
+
+    const result =
+      await AuthService.changePassword(
+        userId,
+        currentPassword,
+        newPassword
+      );
+
+    res.json(result);
+  } catch (err: any) {
+    res.status(400).json({
+      message: err.message,
+    });
+    }
+  }
+  
   static async logout(req: Request, res: Response) {
     res.clearCookie("access_token");
     res.json({ message: "Logged out" });
