@@ -12,6 +12,8 @@ import AppShell from "./components/layout/AppShell";
 
 import AnalyticsPage from "./pages/AnalyticsPage";
 
+import SettingsPage from "./pages/SettingsPage";
+
 const App = () => {
   return (
     <Routes>
@@ -51,7 +53,7 @@ const App = () => {
 
           <Route
             path="/settings"
-            element={<div className="p-8">Settings</div>}
+            element={<SettingsPage />}
           />
 
         </Route>
