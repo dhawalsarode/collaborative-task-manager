@@ -4,6 +4,7 @@ import { z } from "zod";
 import api from "../api/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../auth/AuthContext";
+import { Toast } from "../lib/toast";
 
 /* ================= SCHEMA ================= */
 
@@ -74,10 +75,20 @@ const CreateTaskModal = ({ onClose, task }: Props) => {
         await api.post("/tasks", payload);
       }
 
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      queryClient.invalidateQueries({
+        queryKey: ["tasks"],
+      });
+
+      Toast.success(
+        isEdit
+          ? "Task updated successfully"
+          : "Task created successfully"
+      );
+
       onClose();
     } catch (err) {
-      console.error("Task save failed", err);
+      Toast.error("Unable to save task.");
+      console.error(err);
     }
   };
 

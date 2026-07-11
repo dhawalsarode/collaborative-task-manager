@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/client";
+import { Toast } from "../lib/toast";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -17,8 +18,10 @@ const RegisterPage = () => {
     try {
       await api.post("/auth/register", { name, email, password });
       navigate("/login");
+      Toast.success("Account created successfully.");
     } catch {
       setError("Registration failed");
+      Toast.error("Registration failed.");
     }
   };
 

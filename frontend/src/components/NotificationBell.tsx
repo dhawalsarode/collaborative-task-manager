@@ -13,6 +13,8 @@ import {
 
 import { socket } from "../socket/socket";
 
+import { Toast } from "../lib/toast";
+
 function timeAgo(date: string) {
   const seconds = Math.floor(
     (Date.now() - new Date(date).getTime()) / 1000
@@ -174,13 +176,17 @@ export default function NotificationBell() {
 
             {unread > 0 && (
               <button
-                onClick={async () => {
-                  await markAllNotificationsRead();
+              onClick={async () => {
+                await markAllNotificationsRead();
 
-                  queryClient.invalidateQueries({
-                    queryKey: ["notifications"],
-                  });
-                }}
+                queryClient.invalidateQueries({
+                  queryKey: ["notifications"],
+                });
+
+                Toast.success("All notifications marked as read.");
+
+                setOpen(false);
+              }}
                 className="
                   text-sm
                   font-medium
@@ -212,6 +218,8 @@ export default function NotificationBell() {
                       queryClient.invalidateQueries({
                         queryKey: ["notifications"],
                       });
+
+                      Toast.success("Notification marked as read.");
                     }
                   }}
                   className={`

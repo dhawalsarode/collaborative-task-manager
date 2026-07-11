@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/client";
 import { socket } from "../socket/socket";
+import { Toast } from "../lib/toast";
 
 /* ================= TYPES ================= */
 
@@ -62,6 +63,7 @@ export const AuthProvider = ({
     } finally {
       setUser(null);
       socket.disconnect();
+      Toast.success("Task deleted.");
       window.location.href = "/login";
     }
   };

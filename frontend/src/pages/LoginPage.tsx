@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/client";
 import { useAuth } from "../auth/AuthContext";
+import { Toast } from "../lib/toast";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -19,8 +20,10 @@ const LoginPage = () => {
       const res = await api.post("/auth/login", { email, password });
       setUser(res.data.user);
       navigate("/");
+      Toast.success("Welcome back!");
     } catch {
       setError("Invalid email or password");
+      Toast.error("Invalid email or password.");
     }
   };
 

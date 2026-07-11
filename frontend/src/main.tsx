@@ -6,6 +6,7 @@ import "./styles/background.css";
 import App from "./App";
 import { AuthProvider } from "./auth/AuthContext";
 import { ThemeProvider } from "./theme/ThemeContext";
+import { Toaster } from "sonner";
 
 import "./index.css";
 
@@ -30,6 +31,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <BrowserRouter>
             <App />
           </BrowserRouter>
+          <Toaster
+            richColors
+            position="top-right"
+            closeButton
+            duration={3000}
+          />
         </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>

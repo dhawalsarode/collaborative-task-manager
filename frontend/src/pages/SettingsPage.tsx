@@ -4,6 +4,7 @@ import { useAuth } from "../auth/AuthContext";
 
 import { useUpdateProfile } from "../hooks/useUpdateProfile";
 import { useChangePassword } from "../hooks/useChangePassword";
+import { Toast } from "../lib/toast";
 
 export default function SettingsPage() {
   const { user, setUser, logout } = useAuth();
@@ -50,10 +51,16 @@ export default function SettingsPage() {
 
         <button
           onClick={async () => {
-            const res =
-              await updateProfile.mutateAsync(name);
+            try {
+              const res =
+                await updateProfile.mutateAsync(name);
 
-            setUser(res.data.user);
+              setUser(res.data.user);
+
+              Toast.success("Profile updated.");
+            } catch {
+              Toast.error("Unable to update profile.");
+            }
           }}
           className="rounded-xl bg-primary px-5 py-3 text-white"
         >
@@ -96,10 +103,23 @@ export default function SettingsPage() {
 
         <button
           onClick={() =>
-            updatePassword.mutate({
-              currentPassword,
-              newPassword,
-            })
+            updatePassword.mutate(
+              {
+                currentPassword,
+                newPassword,
+              },
+              {
+                onSuccess: () => {
+                  Toast.success("Password changed.");
+
+                  setCurrentPassword("");
+                  setNewPassword("");
+                },
+                onError: () => {
+                  Toast.error("Unable to change password.");
+                },
+              }
+            )
           }
           className="rounded-xl bg-primary px-5 py-3 text-white"
         >
