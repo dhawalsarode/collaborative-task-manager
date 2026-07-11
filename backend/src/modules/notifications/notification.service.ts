@@ -30,4 +30,16 @@ export class NotificationService {
       data: { read: true },
     });
   }
+
+  static async markAllRead(userId: string) {
+    return prisma.notification.updateMany({
+      where: {
+        userId,
+        read: false,
+      },
+      data: {
+        read: true,
+      },
+    });
+  }
 }

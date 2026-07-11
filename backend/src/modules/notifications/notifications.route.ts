@@ -5,6 +5,17 @@ import { NotificationsController } from "./notification.controller.js";
 const router = Router();
 
 router.get("/", authenticate, NotificationsController.list);
-router.patch("/:id/read", authenticate, NotificationsController.markRead);
+
+router.patch(
+  "/read-all",
+  authenticate,
+  NotificationsController.markAllRead
+);
+
+router.patch(
+  "/:id/read",
+  authenticate,
+  NotificationsController.markRead
+);
 
 export default router;
