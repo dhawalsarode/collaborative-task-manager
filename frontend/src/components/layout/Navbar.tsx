@@ -7,6 +7,7 @@ import {
 
 import { useTheme } from "../../theme/ThemeContext";
 import { useAuth } from "../../auth/AuthContext";
+import NotificationBell from "../NotificationBell";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -75,24 +76,7 @@ export default function Navbar() {
 
         {/* Notification */}
 
-        <button
-          className="
-            h-11
-            w-11
-            rounded-xl
-            border
-            border-slate-200
-            dark:border-slate-700
-            flex
-            items-center
-            justify-center
-            hover:bg-slate-100
-            dark:hover:bg-slate-800
-            transition
-          "
-        >
-          <Bell size={19} />
-        </button>
+          <NotificationBell />
 
         {/* Theme */}
 

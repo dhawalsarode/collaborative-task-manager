@@ -1,64 +1,156 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchNotifications } from "../api/notifications";
-import { socket } from "../socket/socket";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import {
+  Bell,
+  CheckCheck,
+} from "lucide-react";
+import {
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
-const NotificationBell = () => {
+import {
+  fetchNotifications,
+  markNotificationRead,
+} from "../api/notifications";
+import { socket } from "../socket/socket";
+
+export default function NotificationBell() {
+  const [open, setOpen] = useState(false);
+
   const queryClient = useQueryClient();
 
-  const { data = [] } = useQuery({
+  const { data: notifications = [] } = useQuery({
     queryKey: ["notifications"],
     queryFn: fetchNotifications,
   });
 
-  const refreshNotifications = () => {
-  queryClient.invalidateQueries({
-    queryKey: ["notifications"],
-  });
-};                                
-
   useEffect(() => {
-    socket.on("notification:new", () => {
-      queryClient.invalidateQueries({ queryKey: ["notifications"] });
-    });
-
-    return () => {
-      socket.off("notification:new", refreshNotifications);
+    const refresh = () => {
+      queryClient.invalidateQueries({
+        queryKey: ["notifications"],
+      });
     };
-  }, []);
 
-  useEffect(() => {
-    socket.on("notification:new", refreshNotifications);
+    socket.on("notification:new", refresh);
 
     return () => {
-      socket.off("notification:new", refreshNotifications);
+      socket.off("notification:new", refresh);
     };
   }, [queryClient]);
 
+  const unread = notifications.filter(
+    (n) => !n.read
+  ).length;
+
   return (
     <div className="relative">
-      <button className="relative text-xl">
-        🔔
-        {data.length > 0 && (
-          <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs px-1 rounded-full">
-            {data.length}
+
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="relative rounded-xl p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+      >
+        <Bell size={20} />
+
+        {unread > 0 && (
+          <span
+            className="
+              absolute
+              -top-1
+              -right-1
+              flex
+              h-5
+              w-5
+              items-center
+              justify-center
+              rounded-full
+              bg-red-500
+              text-[10px]
+              text-white
+              font-semibold
+            "
+          >
+            {unread}
           </span>
         )}
       </button>
 
-      <div className="absolute right-0 mt-2 w-64 bg-white shadow rounded p-2 z-50">
-        {data.length === 0 ? (
-          <p className="text-sm text-gray-500">No notifications</p>
-        ) : (
-          data.map((n) => (
-            <div key={n.id} className="text-sm border-b py-1">
-              {n.message}
-            </div>
-          ))
-        )}
-      </div>
+      {open && (
+        <div
+          className="
+            absolute
+            right-0
+            mt-3
+            w-96
+            rounded-2xl
+            border
+            border-slate-200
+            dark:border-slate-700
+            bg-white
+            dark:bg-slate-900
+            shadow-2xl
+            overflow-hidden
+            z-50
+          "
+        >
+          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 px-5 py-4">
+            <h3 className="font-semibold">
+              Notifications
+            </h3>
+
+            <CheckCheck size={18} />
+          </div>
+
+          <div className="max-h-96 overflow-y-auto">
+
+            {notifications.length === 0 ? (
+              <div className="p-8 text-center text-sm text-slate-500">
+                No notifications
+              </div>
+            ) : (
+              notifications.map((n) => (
+                <button
+                  key={n.id}
+                  onClick={async () => {
+                    if (!n.read) {
+                      await markNotificationRead(n.id);
+
+                      queryClient.invalidateQueries({
+                        queryKey: ["notifications"],
+                      });
+                    }
+                  }}
+                  className={`
+                    w-full
+                    border-b
+                    border-slate-100
+                    dark:border-slate-800
+                    px-5
+                    py-4
+                    text-left
+                    transition
+                    hover:bg-slate-50
+                    dark:hover:bg-slate-800
+                    ${!n.read ? "bg-blue-50 dark:bg-blue-950/30" : ""}
+                  `}
+                >
+                  <p className="text-sm">
+                    {n.message}
+                  </p>
+
+                  <p className="mt-2 text-xs text-slate-500">
+                    {new Date(
+                      n.createdAt
+                    ).toLocaleString()}
+                  </p>
+                </button>
+              ))
+            )}
+
+          </div>
+
+        </div>
+      )}
+
     </div>
   );
-};
-
-export default NotificationBell;
+}
