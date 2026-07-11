@@ -42,7 +42,9 @@ export const AuthProvider = ({
       .get("/auth/me")
       .then((res) => {
         setUser(res.data.user); 
+        if (!socket.connected) {
         socket.connect();
+      }
       })
       .catch(() => {
         setUser(null);
@@ -59,8 +61,8 @@ export const AuthProvider = ({
       // ignore backend failure
     } finally {
       setUser(null);
-      window.location.href = "/login";
       socket.disconnect();
+      window.location.href = "/login";
     }
   };
 

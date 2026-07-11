@@ -14,3 +14,6 @@ export const fetchNotifications = async (): Promise<Notification[]> => {
 
 export const markNotificationRead = (id: string) =>
   api.patch(`/notifications/${id}/read`);
+
+export const markAllNotificationsRead = () =>
+  api.patch("/notifications/read-all");

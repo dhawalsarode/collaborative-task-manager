@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
-import {
-  Bell,
-  CheckCheck,
-} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Bell } from "lucide-react";
 import {
   useQuery,
   useQueryClient,
@@ -11,11 +8,30 @@ import {
 import {
   fetchNotifications,
   markNotificationRead,
+  markAllNotificationsRead,
 } from "../api/notifications";
+
 import { socket } from "../socket/socket";
+
+function timeAgo(date: string) {
+  const seconds = Math.floor(
+    (Date.now() - new Date(date).getTime()) / 1000
+  );
+
+  if (seconds < 60) return "Just now";
+  if (seconds < 3600)
+    return `${Math.floor(seconds / 60)} min ago`;
+  if (seconds < 86400)
+    return `${Math.floor(seconds / 3600)} hr ago`;
+  if (seconds < 172800) return "Yesterday";
+
+  return `${Math.floor(seconds / 86400)} days ago`;
+}
 
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
+
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const queryClient = useQueryClient();
 
@@ -23,6 +39,8 @@ export default function NotificationBell() {
     queryKey: ["notifications"],
     queryFn: fetchNotifications,
   });
+
+  /* ================= SOCKET ================= */
 
   useEffect(() => {
     const refresh = () => {
@@ -38,18 +56,60 @@ export default function NotificationBell() {
     };
   }, [queryClient]);
 
+  /* ================= CLICK OUTSIDE ================= */
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        panelRef.current &&
+        !panelRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+
+    return () =>
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+  }, []);
+
   const unread = notifications.filter(
     (n) => !n.read
   ).length;
 
   return (
-    <div className="relative">
+    <div
+      ref={panelRef}
+      className="relative"
+    >
+      {/* Bell */}
 
       <button
         onClick={() => setOpen((v) => !v)}
-        className="relative rounded-xl p-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+        className="
+          relative
+          h-11
+          w-11
+          rounded-xl
+          border
+          border-slate-200
+          dark:border-slate-700
+          flex
+          items-center
+          justify-center
+          hover:bg-slate-100
+          dark:hover:bg-slate-800
+          transition
+        "
       >
-        <Bell size={20} />
+        <Bell size={19} />
 
         {unread > 0 && (
           <span
@@ -65,14 +125,16 @@ export default function NotificationBell() {
               rounded-full
               bg-red-500
               text-[10px]
-              text-white
               font-semibold
+              text-white
             "
           >
             {unread}
           </span>
         )}
       </button>
+
+      {/* Dropdown */}
 
       {open && (
         <div
@@ -81,6 +143,7 @@ export default function NotificationBell() {
             right-0
             mt-3
             w-96
+            overflow-hidden
             rounded-2xl
             border
             border-slate-200
@@ -88,17 +151,49 @@ export default function NotificationBell() {
             bg-white
             dark:bg-slate-900
             shadow-2xl
-            overflow-hidden
             z-50
           "
         >
-          <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 px-5 py-4">
+          {/* Header */}
+
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+              border-b
+              border-slate-200
+              dark:border-slate-700
+              px-5
+              py-4
+            "
+          >
             <h3 className="font-semibold">
               Notifications
             </h3>
 
-            <CheckCheck size={18} />
+            {unread > 0 && (
+              <button
+                onClick={async () => {
+                  await markAllNotificationsRead();
+
+                  queryClient.invalidateQueries({
+                    queryKey: ["notifications"],
+                  });
+                }}
+                className="
+                  text-sm
+                  font-medium
+                  text-primary
+                  hover:underline
+                "
+              >
+                Mark all read
+              </button>
+            )}
           </div>
+
+          {/* Notifications */}
 
           <div className="max-h-96 overflow-y-auto">
 
@@ -130,27 +225,27 @@ export default function NotificationBell() {
                     transition
                     hover:bg-slate-50
                     dark:hover:bg-slate-800
-                    ${!n.read ? "bg-blue-50 dark:bg-blue-950/30" : ""}
+                    ${
+                      !n.read
+                        ? "bg-blue-50 dark:bg-blue-950/30"
+                        : ""
+                    }
                   `}
                 >
-                  <p className="text-sm">
+                  <p className="text-sm font-medium">
                     {n.message}
                   </p>
 
                   <p className="mt-2 text-xs text-slate-500">
-                    {new Date(
-                      n.createdAt
-                    ).toLocaleString()}
+                    {timeAgo(n.createdAt)}
                   </p>
                 </button>
               ))
             )}
 
           </div>
-
         </div>
       )}
-
     </div>
   );
 }
