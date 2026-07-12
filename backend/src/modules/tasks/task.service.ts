@@ -96,7 +96,15 @@ export class TaskService {
     if (data.title !== undefined) updateData.title = data.title;
     if (data.description !== undefined)
       updateData.description = data.description;
-    if (data.status !== undefined) updateData.status = data.status;
+    if (data.status !== undefined) {
+      updateData.status = data.status;
+
+    if (data.status === "COMPLETED") {
+      updateData.completedAt = new Date();
+    } else {
+      updateData.completedAt = null;
+    }
+  }
     if (data.priority !== undefined) updateData.priority = data.priority;
     if (data.assignedToId !== undefined)
       updateData.assignedToId = data.assignedToId;

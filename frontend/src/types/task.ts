@@ -39,6 +39,7 @@ export interface Task {
 
   createdAt?: string;
   updatedAt?: string;
+  completedAt?: string | null;
 
   creator?: User | null;
   assignee?: User | null;
