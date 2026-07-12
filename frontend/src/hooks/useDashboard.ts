@@ -96,6 +96,71 @@ export default function useDashboard() {
       },
     ];
 
+    const weeklyCompletion = Array.from({ length: 7 }, (_, i) => {
+      const day = new Date();
+      day.setDate(now.getDate() - (6 - i));
+
+      const count = tasks.filter((task) => {
+        if (!task.completedAt) return false;
+
+        const completed = new Date(task.completedAt);
+
+        return (
+          completed.getDate() === day.getDate() &&
+          completed.getMonth() === day.getMonth() &&
+          completed.getFullYear() === day.getFullYear()
+        );
+      }).length;
+
+      return {
+        day: day.toLocaleDateString("en-US", {
+          weekday: "short",
+        }),
+        completed: count,
+      };
+    });
+
+    const completedTasks = tasks.filter(
+      (task) => task.completedAt
+    );
+
+    const averageCompletionTime =
+      completedTasks.length === 0
+        ? 0
+        : Math.round(
+            completedTasks.reduce((sum, task) => {
+              const created = new Date(task.createdAt!);
+              const completed = new Date(task.completedAt!);
+
+              return (
+                sum +
+                (completed.getTime() - created.getTime()) /
+                  (1000 * 60 * 60 * 24)
+              );
+            }, 0) / completedTasks.length
+          );
+
+    const productivityScore =
+      totalTasks === 0
+        ? 0
+        : Math.max(
+            0,
+            Math.round(
+              completionRate - (overdue / totalTasks) * 30
+            )
+          );
+
+    const completedThisWeek = completedTasks.filter(
+      (task) => {
+        const completed = new Date(task.completedAt!);
+
+        return (
+          now.getTime() - completed.getTime() <=
+          7 * 24 * 60 * 60 * 1000
+        );
+      }
+    ).length;
+
     const recentTasks = [...tasks]
       .sort(
         (a, b) =>
@@ -134,6 +199,14 @@ export default function useDashboard() {
       recentTasks,
 
       upcomingTasks,
+
+      weeklyCompletion,
+
+      averageCompletionTime,
+
+      productivityScore,
+
+      completedThisWeek,
     };
   }, [tasks]);
 

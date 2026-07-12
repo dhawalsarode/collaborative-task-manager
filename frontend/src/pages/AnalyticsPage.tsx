@@ -1,16 +1,23 @@
-import StatsGrid from "../components/dashboard/StatsGrid";
+import AnalyticsSummary from "../components/analytics/AnalyticsSummary";
+import WeeklyProductivityChart from "../components/analytics/WeeklyProductivityChart";
+
 import AnalyticsChart from "../components/dashboard/AnalyticsChart";
 import PriorityChart from "../components/dashboard/PriorityChart";
-import ProgressChart from "../components/dashboard/ProgressChart";
-import useDashboard from "../hooks/useDashboard";
+
+import useAnalytics from "../hooks/useAnalytics";
 
 export default function AnalyticsPage() {
   const {
     loading,
-    stats,
-    statusChart,
+    productivityScore,
+    productivityLabel,
+    averageCompletionTime,
+    completedThisWeek,
+    overdueRate,
+    weeklyCompletion,
     priorityChart,
-  } = useDashboard();
+    statusChart,
+  } = useAnalytics();
 
   if (loading) {
     return (
@@ -34,17 +41,23 @@ export default function AnalyticsPage() {
         </h1>
 
         <p className="mt-2 text-sm text-secondary">
-          Visual overview of project performance.
+          Historical trends and productivity metrics.
         </p>
 
       </div>
 
-      <StatsGrid stats={stats} />
+      <AnalyticsSummary
+        productivityScore={productivityScore}
+        productivityLabel={productivityLabel}
+        averageCompletionTime={averageCompletionTime}
+        completedThisWeek={completedThisWeek}
+        overdueRate={overdueRate}
+      />
 
       <div className="grid gap-6 xl:grid-cols-2">
 
-        <AnalyticsChart
-          data={statusChart}
+        <WeeklyProductivityChart
+          data={weeklyCompletion}
         />
 
         <PriorityChart
@@ -53,10 +66,10 @@ export default function AnalyticsPage() {
 
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-2">
+      <div>
 
-        <ProgressChart
-          percentage={stats.completionRate}
+        <AnalyticsChart
+          data={statusChart}
         />
 
       </div>
