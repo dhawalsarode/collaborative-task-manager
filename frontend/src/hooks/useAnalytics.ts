@@ -16,6 +16,37 @@ export default function useAnalytics() {
   });
 
   const analytics = useMemo(() => {
+    const priorities = [
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "URGENT",
+  ] as const;
+
+  const completionByPriority = priorities.map(
+    (priority) => {
+      const all = tasks.filter(
+        (t) => t.priority === priority
+      );
+
+      const completed = all.filter(
+        (t) => t.status === "COMPLETED"
+      );
+
+      return {
+        priority:
+          priority.charAt(0) +
+          priority.slice(1).toLowerCase(),
+
+        rate:
+          all.length === 0
+            ? 0
+            : Math.round(
+                (completed.length / all.length) * 100
+              ),
+      };
+    }
+  );
     const now = new Date();
 
     const completedTasks = tasks.filter(
@@ -167,8 +198,13 @@ export default function useAnalytics() {
       averageCompletionTime,
       completedThisWeek,
       overdueRate,
+
       weeklyCompletion,
+
       priorityChart,
+
+      completionByPriority,
+
       statusChart,
     };
   }, [tasks]);

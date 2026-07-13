@@ -1,7 +1,7 @@
 import AnalyticsSummary from "../components/analytics/AnalyticsSummary";
 import WeeklyProductivityChart from "../components/analytics/WeeklyProductivityChart";
+import CompletionByPriorityChart from "../components/analytics/CompletionByPriorityChart";
 
-import AnalyticsChart from "../components/dashboard/AnalyticsChart";
 import PriorityChart from "../components/dashboard/PriorityChart";
 
 import useAnalytics from "../hooks/useAnalytics";
@@ -16,7 +16,7 @@ export default function AnalyticsPage() {
     overdueRate,
     weeklyCompletion,
     priorityChart,
-    statusChart,
+    completionByPriority,
   } = useAnalytics();
 
   if (loading) {
@@ -29,6 +29,8 @@ export default function AnalyticsPage() {
 
   return (
     <div className="space-y-6">
+
+      {/* Header */}
 
       <div>
 
@@ -46,6 +48,8 @@ export default function AnalyticsPage() {
 
       </div>
 
+      {/* Summary Cards */}
+
       <AnalyticsSummary
         productivityScore={productivityScore}
         productivityLabel={productivityLabel}
@@ -53,6 +57,8 @@ export default function AnalyticsPage() {
         completedThisWeek={completedThisWeek}
         overdueRate={overdueRate}
       />
+
+      {/* Charts */}
 
       <div className="grid gap-6 xl:grid-cols-2">
 
@@ -66,10 +72,12 @@ export default function AnalyticsPage() {
 
       </div>
 
-      <div>
+      {/* Completion by Priority */}
 
-        <AnalyticsChart
-          data={statusChart}
+      <div className="grid gap-6">
+
+        <CompletionByPriorityChart
+          data={completionByPriority}
         />
 
       </div>
