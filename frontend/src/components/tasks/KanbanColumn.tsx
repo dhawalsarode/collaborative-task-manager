@@ -92,7 +92,6 @@ export default function KanbanColumn({
               dark:border-slate-700
               bg-white/80
               dark:bg-slate-900/80
-              backdrop-blur-xl
               shadow-lg
               hover:shadow-xl
               transition-all

@@ -27,7 +27,7 @@ export default function SettingsPage() {
           Settings
         </p>
 
-        <h1 className="mt-1 text-4xl font-bold tracking-tight">
+        <h1 className="mt-1 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
           Account Settings
         </h1>
 
@@ -40,7 +40,7 @@ export default function SettingsPage() {
 
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
 
-        <h2 className="text-2xl font-semibold">
+        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
           Profile
         </h2>
 
@@ -52,22 +52,26 @@ export default function SettingsPage() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="
-            w-full
-            rounded-xl
-            border
-            border-slate-200
-            bg-white
-            px-4
-            py-3
-            outline-none
-            transition
-            focus:border-indigo-600
-            focus:ring-4
-            focus:ring-indigo-100
-            dark:border-slate-700
-            dark:bg-slate-800
-            dark:focus:ring-indigo-900/40
-          "
+                      w-full
+                      rounded-xl
+                      border
+                      border-slate-200
+                      bg-white
+                      dark:bg-slate-800
+                      text-slate-900
+                      dark:text-white
+                      placeholder:text-slate-400
+                      dark:placeholder:text-slate-500
+                      px-4
+                      py-3
+                      outline-none
+                      transition
+                      focus:border-indigo-600
+                      focus:ring-4
+                      focus:ring-indigo-100
+                      dark:border-slate-700
+                      dark:focus:ring-indigo-900/40
+                      "
         />
 
         <button
@@ -110,7 +114,7 @@ export default function SettingsPage() {
 
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
 
-        <h2 className="text-2xl font-semibold">
+        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
           Change Password
         </h2>
 
@@ -128,22 +132,26 @@ export default function SettingsPage() {
               setCurrentPassword(e.target.value)
             }
             className="
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              outline-none
-              transition
-              focus:border-indigo-600
-              focus:ring-4
-              focus:ring-indigo-100
-              dark:border-slate-700
-              dark:bg-slate-800
-              dark:focus:ring-indigo-900/40
-            "
+                      w-full
+                      rounded-xl
+                      border
+                      border-slate-200
+                      bg-white
+                      dark:bg-slate-800
+                      text-slate-900
+                      dark:text-white
+                      placeholder:text-slate-400
+                      dark:placeholder:text-slate-500
+                      px-4
+                      py-3
+                      outline-none
+                      transition
+                      focus:border-indigo-600
+                      focus:ring-4
+                      focus:ring-indigo-100
+                      dark:border-slate-700
+                      dark:focus:ring-indigo-900/40
+                      "
           />
 
           <input
@@ -154,22 +162,26 @@ export default function SettingsPage() {
               setNewPassword(e.target.value)
             }
             className="
-              w-full
-              rounded-xl
-              border
-              border-slate-200
-              bg-white
-              px-4
-              py-3
-              outline-none
-              transition
-              focus:border-indigo-600
-              focus:ring-4
-              focus:ring-indigo-100
-              dark:border-slate-700
-              dark:bg-slate-800
-              dark:focus:ring-indigo-900/40
-            "
+                      w-full
+                      rounded-xl
+                      border
+                      border-slate-200
+                      bg-white
+                      dark:bg-slate-800
+                      text-slate-900
+                      dark:text-white
+                      placeholder:text-slate-400
+                      dark:placeholder:text-slate-500
+                      px-4
+                      py-3
+                      outline-none
+                      transition
+                      focus:border-indigo-600
+                      focus:ring-4
+                      focus:ring-indigo-100
+                      dark:border-slate-700
+                      dark:focus:ring-indigo-900/40
+                      "
           />
 
         </div>
@@ -222,7 +234,7 @@ export default function SettingsPage() {
 
       <section className="rounded-3xl border border-red-200 bg-white p-6 shadow-sm dark:border-red-800 dark:bg-slate-900">
 
-        <h2 className="text-2xl font-semibold">
+        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
           Account
         </h2>
 
