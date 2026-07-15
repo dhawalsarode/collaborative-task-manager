@@ -87,7 +87,7 @@ export default function AnalyticsSummary(props: Props) {
                   {card.title}
                 </p>
 
-                <h2 className="mt-2 text-3xl font-bold">
+                <h2 className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
                   {card.value}
                 </h2>
 

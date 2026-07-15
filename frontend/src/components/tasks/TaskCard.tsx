@@ -49,7 +49,7 @@ export default function TaskCard({
       {/* Header */}
 
       <div className="flex justify-between items-start gap-3">
-        <h3 className="font-semibold text-[15px] leading-tight line-clamp-2">
+        <h3 className="font-semibold text-slate-900 dark:text-white text-[15px] leading-tight line-clamp-2">
           {task.title}
         </h3>
 
@@ -64,6 +64,7 @@ export default function TaskCard({
               hover:bg-slate-100
               dark:hover:bg-slate-700
               transition-all
+              text-slate-600 dark:text-slate-300
             "
           >
             <Pencil size={16} />
@@ -76,6 +77,10 @@ export default function TaskCard({
               p-2
               opacity-60
               group-hover:opacity-100
+              text-slate-500
+              hover:text-red-600
+              dark:text-slate-400
+              dark:hover:text-red-400
               hover:bg-red-50
               dark:hover:bg-red-900/30
               transition-all
@@ -88,7 +93,7 @@ export default function TaskCard({
 
       {/* Description */}
 
-      <p className="mt-3 text-sm text-secondary line-clamp-2">
+      <p className="mt-3 text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
         {task.description}
       </p>
 
@@ -96,23 +101,23 @@ export default function TaskCard({
 
       <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
         <div>
-          <div className="flex items-center gap-1 text-secondary">
+          <div className="flex items-center gap-1 text-slate-600 dark:text-slate-400">
             <User size={13} />
             Assigned
           </div>
 
-          <div className="mt-1 font-medium">
+          <div className="mt-1 font-medium text-slate-900 dark:text-slate-200">
             {task.assignee?.name ?? "Unassigned"}
           </div>
         </div>
 
         <div>
-          <div className="flex items-center gap-1 text-secondary">
+          <div className="flex items-center gap-1 text-slate-600 dark:text-slate-400">
             <UserRound size={13} />
             Created
           </div>
 
-          <div className="mt-1 font-medium">
+          <div className="mt-1 font-medium text-slate-900 dark:text-slate-200">
             {task.creator?.name}
           </div>
         </div>
@@ -132,13 +137,14 @@ export default function TaskCard({
             text-xs
             font-semibold
             ${PRIORITY_COLORS[task.priority]}
+            !text-current
           `}
         >
           <Flag size={12} />
           {task.priority}
         </span>
 
-        <span className="flex items-center gap-1 text-xs text-secondary">
+        <span className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
           <CalendarDays size={13} />
           {new Date(task.dueDate).toLocaleString("en-GB", {
             day: "2-digit",

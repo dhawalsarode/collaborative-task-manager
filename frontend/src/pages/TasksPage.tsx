@@ -66,11 +66,11 @@ export default function TasksPage() {
               Tasks
             </p>
 
-            <h1 className="mt-1 text-3xl font-bold tracking-tight">
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               Manage your workspace
             </h1>
 
-            <p className="mt-2 text-sm text-secondary">
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
               Create, organize and track all tasks.
             </p>
 
@@ -99,7 +99,7 @@ export default function TasksPage() {
 
         </div>
 
-        <div className="relative">
+        <div className="relative mb-6">
 
           <Search
             size={18}
@@ -128,6 +128,7 @@ export default function TasksPage() {
         </div>
                 </div>
       <DragDropContext onDragEnd={onDragEnd}>
+        <div className="mt-6"></div>
       <div className="
                       grid
                       gap-8

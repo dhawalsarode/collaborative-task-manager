@@ -38,11 +38,11 @@ export default function AnalyticsPage() {
           Analytics
         </p>
 
-        <h1 className="mt-1 text-3xl font-bold tracking-tight">
+        <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
           Workspace Insights
         </h1>
 
-        <p className="mt-2 text-sm text-secondary">
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
           Historical trends and productivity metrics.
         </p>
 
