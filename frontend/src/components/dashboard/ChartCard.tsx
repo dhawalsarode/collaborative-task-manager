@@ -37,7 +37,7 @@ export default function ChartCard({
 
       </div>
 
-      <div className="h-[285px] p-5">
+      <div className="h-[250px] p-6">
         {children}
       </div>
     </div>

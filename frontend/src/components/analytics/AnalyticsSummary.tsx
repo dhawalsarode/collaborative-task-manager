@@ -21,7 +21,7 @@ const cards = (
   overdueRate: number
 ) => [
   {
-    title: "Productivity",
+    title: "Completion Rate",
     value: `${productivityScore}%`,
     subtitle: productivityLabel,
     icon: Activity,
@@ -73,7 +73,7 @@ export default function AnalyticsSummary(props: Props) {
               dark:border-slate-700
               bg-white
               dark:bg-slate-900
-              p-5
+              p-4
               shadow-sm
               transition
               hover:shadow-md
