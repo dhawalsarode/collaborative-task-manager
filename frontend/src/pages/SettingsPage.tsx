@@ -38,7 +38,7 @@ export default function SettingsPage() {
 
       {/* ---------------- Profile ---------------- */}
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
+      <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
 
         <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
           Profile
@@ -112,7 +112,7 @@ export default function SettingsPage() {
 
       {/* ---------------- Password ---------------- */}
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
+      <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
 
         <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
           Change Password
@@ -232,7 +232,7 @@ export default function SettingsPage() {
 
       {/* ---------------- Account ---------------- */}
 
-      <section className="rounded-3xl border border-red-200 bg-white p-6 shadow-sm dark:border-red-800 dark:bg-slate-900">
+      <section className="rounded-3xl border border-red-200 bg-white p-5 shadow-sm dark:border-red-800 dark:bg-slate-900">
 
         <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
           Account

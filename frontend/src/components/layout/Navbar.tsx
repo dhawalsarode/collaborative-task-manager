@@ -16,13 +16,13 @@ export default function Navbar() {
   return (
     <header
       className="
-        h-20
+        h-16
         bg-white
         dark:bg-slate-900
         border-b
         border-slate-200
         dark:border-slate-800
-        px-8
+        px-6
         flex
         items-center
         justify-between
@@ -35,7 +35,7 @@ export default function Navbar() {
           Dashboard
         </h1>
 
-        <p className="text-sm text-slate-500">
+        <p className="text-xs text-slate-500">
           Welcome back, {user?.name}
         </p>
       </div>

@@ -83,7 +83,7 @@ export default function TasksPage() {
               items-center
               gap-4
               rounded-xl
-              bg-primary
+              bg-indigo-600
               px-5
               py-3
               font-medium

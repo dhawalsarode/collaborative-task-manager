@@ -54,12 +54,12 @@ export default function Sidebar() {
     >
       {/* Logo */}
 
-      <div className="px-7 py-7 border-b border-slate-200 dark:border-slate-800">
+      <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center gap-4">
           <img
             src={logo}
             alt="Syncora"
-            className="w-11 h-11 object-contain"
+            className="w-9 h-9 object-contain"
           />
 
           <div>
@@ -76,7 +76,7 @@ export default function Sidebar() {
 
       {/* Navigation */}
 
-      <nav className="flex-1 px-4 py-6">
+      <nav className="flex-1 px-4 py-5">
 
         <p className="px-3 mb-3 text-xs uppercase tracking-wider text-slate-400">
           Workspace
@@ -125,7 +125,7 @@ export default function Sidebar() {
 
       {/* User */}
 
-      <div className="border-t border-slate-200 dark:border-slate-800 p-5">
+      <div className="border-t border-slate-200 dark:border-slate-800 p-4">
 
         <div className="mb-4">
 
@@ -155,7 +155,7 @@ export default function Sidebar() {
             bg-red-500
             hover:bg-red-600
             text-white
-            py-3
+            py-2.5
             font-medium
             transition
           "

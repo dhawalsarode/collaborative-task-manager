@@ -27,7 +27,7 @@ export default function AppShell() {
             overflow-y-auto
             bg-slate-100
             dark:bg-slate-950
-            p-6
+            p-5
           "
         >
           <Outlet />
