@@ -13,13 +13,40 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
   const [error, setError] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+
   const [loading, setLoading] = useState(false);
+
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validateEmail = (value: string) => {
+    if (!EMAIL_REGEX.test(value.trim())) {
+      return "Please enter a valid email address.";
+    }
+
+    return "";
+  };
+
+  const isFormInvalid =
+    loading ||
+    !email.trim() ||
+    !password ||
+    !!emailError;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     setError("");
+    const emailValidation = validateEmail(email);
+
+      setEmailError(emailValidation);
+
+      if (emailValidation) {
+        return;
+      }
     setLoading(true);
 
     try {
@@ -28,10 +55,13 @@ const LoginPage = () => {
       setUser(res.data.user);
       Toast.success("Welcome back!");
       navigate("/");
-    } catch {
-      setError("Invalid email or password");
-      Toast.error("Invalid email or password.");
-    } finally {
+    } catch (err: any) {
+      const message =
+        err.response?.data?.message ??
+        "Invalid email or password.";
+      setError(message);
+        Toast.error(message);
+  } finally {
       setLoading(false);
     }
   };
@@ -69,9 +99,21 @@ const LoginPage = () => {
                       "
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setError("");
+
+            const value = e.target.value;
+            setEmail(value);
+            setEmailError(validateEmail(value));
+          }}
           required
         />
+
+        {emailError && (
+          <p className="mt-2 text-sm text-red-500">
+            {emailError}
+          </p>
+        )}
 
         <div className="relative">
           <input
@@ -96,7 +138,10 @@ const LoginPage = () => {
             "
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setError("");
+              setPassword(e.target.value);
+            }}
             required
           />
 
@@ -123,7 +168,7 @@ const LoginPage = () => {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={isFormInvalid}
           className="
             flex
             w-full
