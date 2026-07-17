@@ -150,6 +150,8 @@ const RegisterPage = () => {
           placeholder="Full Name"
           value={name}
           onChange={(e) => {
+            setError("");
+
             const value = e.target.value;
             setName(value);
             setNameError(validateName(value));
@@ -184,6 +186,8 @@ const RegisterPage = () => {
           placeholder="Email"
           value={email}
           onChange={(e) => {
+            setError("");
+
             const value = e.target.value;
             setEmail(value);
             setEmailError(validateEmail(value));
@@ -239,6 +243,8 @@ const RegisterPage = () => {
         value={password}
         onFocus={() => setPasswordFocused(true)}
         onChange={(e) => {
+          setError("");
+          
           const value = e.target.value;
           setPassword(value);
           setPasswordError(validatePassword(value));
@@ -274,40 +280,40 @@ const RegisterPage = () => {
         className={
           passwordChecks.minLength
             ? "text-green-600"
-            : "text-red-500"
+            : "text-slate-500"
         }
       >
-        {passwordChecks.minLength ? "✓" : "✗"} At least 8 characters
+        {passwordChecks.minLength ? "✓" : "•"} At least 8 characters
       </p>
 
       <p
         className={
           passwordChecks.uppercase
             ? "text-green-600"
-            : "text-red-500"
+            : "text-slate-500"
         }
       >
-        {passwordChecks.uppercase ? "✓" : "✗"} One uppercase letter
+        {passwordChecks.uppercase ? "✓" : "•"} One uppercase letter
       </p>
 
       <p
         className={
           passwordChecks.lowercase
             ? "text-green-600"
-            : "text-red-500"
+            : "text-slate-500"
         }
       >
-        {passwordChecks.lowercase ? "✓" : "✗"} One lowercase letter
+        {passwordChecks.lowercase ? "✓" : "•"} One lowercase letter
       </p>
 
       <p
         className={
           passwordChecks.number
             ? "text-green-600"
-            : "text-red-500"
+            : "text-slate-500"
         }
       >
-        {passwordChecks.number ? "✓" : "✗"} One number
+        {passwordChecks.number ? "✓" : "•"} One number
       </p>
 
     </div>
@@ -319,6 +325,8 @@ const RegisterPage = () => {
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => {
+              setError("");
+
               const value = e.target.value;
               setConfirmPassword(value);
 
