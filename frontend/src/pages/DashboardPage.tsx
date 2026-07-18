@@ -1,4 +1,5 @@
 import useDashboard from "../hooks/useDashboard";
+import { Sparkles } from "lucide-react";
 
 import StatsGrid from "../components/dashboard/StatsGrid";
 import AnalyticsChart from "../components/dashboard/AnalyticsChart";
@@ -9,6 +10,14 @@ import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";
 
 const DashboardPage = () => {
   const { user } = useAuth();
+  const hour = new Date().getHours();
+
+  const greeting =
+    hour < 12
+      ? "Good Morning"
+      : hour < 17
+      ? "Good Afternoon"
+      : "Good Evening";
   const {
     loading,
     tasks,
@@ -36,15 +45,17 @@ const DashboardPage = () => {
       <section className="flex items-end justify-between">
 
         <div>
-          <p className="text-sm font-medium text-indigo-600">
-            Dashboard
-          </p>
 
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Good Evening, {user?.name} 👋
-          </h1>
+        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+          {greeting}, {user?.name}
 
-          <p className="mt-2 text-sm text-slate-500">
+          <Sparkles
+            size={24}
+            className="text-amber-400"
+          />
+        </h1>
+
+          <p className="mt-0.5 text-sm text-slate-500">
             Here's what's happening across your workspace today.
           </p>
         </div>

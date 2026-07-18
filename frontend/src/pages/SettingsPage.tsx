@@ -23,15 +23,12 @@ export default function SettingsPage() {
       {/* Header */}
 
       <div>
-        <p className="text-sm font-medium text-indigo-600">
-          Settings
-        </p>
 
-        <h1 className="mt-1 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
           Account Settings
         </h1>
 
-        <p className="mt-2 text-slate-500 dark:text-slate-400">
+        <p className="mt-0.5 text-slate-500 dark:text-slate-400">
           Manage your profile, password and account preferences.
         </p>
       </div>
@@ -40,7 +37,7 @@ export default function SettingsPage() {
 
       <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
 
-        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
+        <h2 className="text-xl leading-7 font-semibold text-slate-900 dark:text-white">
           Profile
         </h2>
 
@@ -114,7 +111,7 @@ export default function SettingsPage() {
 
       <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-900">
 
-        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
+        <h2 className="text-xl leading-7 font-semibold text-slate-900 dark:text-white">
           Change Password
         </h2>
 
@@ -234,7 +231,7 @@ export default function SettingsPage() {
 
       <section className="rounded-3xl border border-red-200 bg-white p-5 shadow-sm dark:border-red-800 dark:bg-slate-900">
 
-        <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
+        <h2 className="text-xl leading-7 font-semibold text-slate-900 dark:text-white">
           Account
         </h2>
 

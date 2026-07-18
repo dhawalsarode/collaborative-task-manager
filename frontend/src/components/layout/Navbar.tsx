@@ -6,9 +6,9 @@ import {
 } from "lucide-react";
 
 import { useTheme } from "../../theme/ThemeContext";
-import { useAuth } from "../../auth/AuthContext";
 import NotificationBell from "../NotificationBell";
 import type { Dispatch, SetStateAction } from "react";
+import { useLocation } from "react-router-dom";
 
   type NavbarProps = {
     sidebarOpen: boolean;
@@ -20,8 +20,17 @@ export default function Navbar({
   }: NavbarProps) {
 
   const { theme, toggleTheme } = useTheme();
-  const { user } = useAuth();
+  const { pathname } = useLocation();
 
+  const pageTitles: Record<string, string> = {
+    "/dashboard": "Dashboard",
+    "/tasks": "Tasks",
+    "/analytics": "Analytics",
+    "/settings": "Settings",
+  };
+
+  const pageTitle = pageTitles[pathname] ?? "Syncora";
+  
   return (
       <header
         className="
@@ -62,15 +71,21 @@ export default function Navbar({
         <Menu size={22} />
       </button>
 
-      <div>
-        <h1 className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white">
-          Dashboard
-        </h1>
+    <div className="flex items-center gap-3">
+      <span className="h-7 w-1 rounded-full bg-indigo-600" />
 
-        <p className="hidden md:block text-xs text-slate-500">
-          Welcome back, {user?.name}
-        </p>
-      </div>
+      <h1
+        className="
+          text-2xl
+          font-extrabold
+          tracking-tight
+          text-slate-900
+          dark:text-white
+        "
+      >
+        {pageTitle}
+      </h1>
+    </div>
 
     </div>
 

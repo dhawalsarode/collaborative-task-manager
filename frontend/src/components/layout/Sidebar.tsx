@@ -76,19 +76,20 @@ const navItems = [
       {/* Logo */}
 
       <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <img
-            src={logo}
-            alt="Syncora"
-            className="w-9 h-9 object-contain"
-          />
+              src={logo}
+              alt="Syncora"
+              className="h-10 w-10 object-contain shrink-0"
+            />
 
           <div>
-            <h1 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            <h1
+              className=" text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Syncora
             </h1>
 
-            <p className="text-sm text-slate-500 dark:text-slate-400">
+            <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
               Collaborative Workspace
             </p>
           </div>
@@ -113,6 +114,7 @@ const navItems = [
               <NavLink
                 key={item.path}
                 to={item.path}
+                onClick={() => setSidebarOpen(false)}
                 className={({ isActive }) =>
                   `
                     flex

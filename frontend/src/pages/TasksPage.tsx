@@ -3,7 +3,6 @@ import { Plus, Search } from "lucide-react";
 
 import CreateTaskModal from "../components/CreateTaskModal";
 import { useTasks } from "../hooks/useTasks";
-import TaskCard from "../components/tasks/TaskCard";
 
 import KanbanColumn from "../components/tasks/KanbanColumn";
 import { DragDropContext, DropResult } from "@hello-pangea/dnd";
@@ -62,15 +61,11 @@ export default function TasksPage() {
 
           <div>
 
-            <p className="text-sm font-medium text-primary">
-              Tasks
-            </p>
-
-            <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+            <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
               Manage your workspace
             </h1>
 
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
               Create, organize and track all tasks.
             </p>
 
@@ -126,7 +121,8 @@ export default function TasksPage() {
           />
 
         </div>
-                </div>
+      </div>
+
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="mt-6"></div>
       <div className="
