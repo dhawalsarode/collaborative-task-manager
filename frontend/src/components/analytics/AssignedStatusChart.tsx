@@ -10,14 +10,16 @@ import {
 
 import AnalyticsCard from "./AnalyticsCard";
 
-const mockData = [
-  { status: "To Do", tasks: 4 },
-  { status: "In Progress", tasks: 3 },
-  { status: "Review", tasks: 2 },
-  { status: "Completed", tasks: 6 },
-];
+interface AssignedStatusData {
+  status: string;
+  tasks: number;
+}
 
-export default function AssignedStatusChart() {
+interface Props {
+  data: AssignedStatusData[];
+}
+
+export default function AssignedStatusChart({ data }: Props) {
   return (
     <AnalyticsCard
       title="Assigned Tasks"
@@ -26,7 +28,7 @@ export default function AssignedStatusChart() {
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={mockData}
+            data={data}
             margin={{
               top: 10,
               right: 10,
@@ -39,7 +41,11 @@ export default function AssignedStatusChart() {
               vertical={false}
             />
 
-            <XAxis dataKey="status" />
+            <XAxis
+                dataKey="status"
+                tick={{ fontSize: 12 }}
+                interval={0}
+            />
 
             <YAxis allowDecimals={false} />
 
@@ -47,7 +53,7 @@ export default function AssignedStatusChart() {
 
             <Bar
               dataKey="tasks"
-              fill="#6366F1"
+              fill="#10B981" 
               radius={[8, 8, 0, 0]}
             />
           </BarChart>

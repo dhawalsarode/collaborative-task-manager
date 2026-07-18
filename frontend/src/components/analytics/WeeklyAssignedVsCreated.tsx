@@ -11,15 +11,15 @@ import {
 
 import AnalyticsCard from "./AnalyticsCard";
 
-const mockData = [
-  { day: "Sun", assigned: 1, created: 0 },
-  { day: "Mon", assigned: 0, created: 0 },
-  { day: "Tue", assigned: 0, created: 0 },
-  { day: "Wed", assigned: 0, created: 0 },
-  { day: "Thu", assigned: 1, created: 1 },
-  { day: "Fri", assigned: 0, created: 0 },
-  { day: "Sat", assigned: 0, created: 0 },
-];
+interface WeeklyAssignedVsCreatedData {
+  day: string;
+  assigned: number;
+  created: number;
+}
+
+interface Props {
+  data: WeeklyAssignedVsCreatedData[];
+}
 
 const AssignedDot = (props: any) => {
   const { cx, cy, payload } = props;
@@ -59,7 +59,9 @@ const CreatedDot = (props: any) => {
   );
 };
 
-export default function WeeklyAssignedVsCreated() {
+export default function WeeklyAssignedVsCreated({
+  data,
+  }: Props) {
   return (
     <AnalyticsCard
       title="Weekly Performance"
@@ -67,7 +69,7 @@ export default function WeeklyAssignedVsCreated() {
     >
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={mockData}>
+          <LineChart data={data}>
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}

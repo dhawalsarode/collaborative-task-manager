@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import api from "../api/client";
+import { useAuth } from "../auth/AuthContext";
 import { Task } from "../types/task";
 
 const fetchTasks = async (): Promise<Task[]> => {
@@ -9,45 +10,54 @@ const fetchTasks = async (): Promise<Task[]> => {
   return res.data;
 };
 
+const PRIORITIES = [
+  "LOW",
+  "MEDIUM",
+  "HIGH",
+  "URGENT",
+] as const;
+
+const STATUSES = [
+  "TODO",
+  "IN_PROGRESS",
+  "REVIEW",
+  "COMPLETED",
+] as const;
+
+const STATUS_LABELS = {
+  TODO: "To Do",
+  IN_PROGRESS: "In Progress",
+  REVIEW: "Review",
+  COMPLETED: "Completed",
+} as const;
+
 export default function useAnalytics() {
+  const { user } = useAuth();
+
   const { data: tasks = [], isLoading } = useQuery({
     queryKey: ["tasks"],
     queryFn: fetchTasks,
   });
 
   const analytics = useMemo(() => {
-    const priorities = [
-    "LOW",
-    "MEDIUM",
-    "HIGH",
-    "URGENT",
-  ] as const;
-
-  const completionByPriority = priorities.map(
-    (priority) => {
-      const all = tasks.filter(
-        (t) => t.priority === priority
-      );
-
-      const completed = all.filter(
-        (t) => t.status === "COMPLETED"
-      );
-
-      return {
-        priority:
-          priority.charAt(0) +
-          priority.slice(1).toLowerCase(),
-
-        rate:
-          all.length === 0
-            ? 0
-            : Math.round(
-                (completed.length / all.length) * 100
-              ),
-      };
-    }
-  );
     const now = new Date();
+
+    const isSameDay = (
+      dateString: string | undefined,
+      day: Date
+    ) => {
+      if (!dateString) return false;
+
+      const date = new Date(dateString);
+
+      return (
+        date.getDate() === day.getDate() &&
+        date.getMonth() === day.getMonth() &&
+        date.getFullYear() === day.getFullYear()
+      );
+    };
+
+    /* ================= Summary ================= */
 
     const completedTasks = tasks.filter(
       (task) => task.completedAt
@@ -62,12 +72,11 @@ export default function useAnalytics() {
       );
     }).length;
 
-    const overdue = tasks.filter((task) => {
-      return (
+    const overdue = tasks.filter(
+      (task) =>
         new Date(task.dueDate) < now &&
         task.status !== "COMPLETED"
-      );
-    }).length;
+    ).length;
 
     const completionRate =
       tasks.length === 0
@@ -83,8 +92,7 @@ export default function useAnalytics() {
 
     const productivityScore = completionRate;
 
-    const productivityLabel =
-      `${completedTasks.length} of ${tasks.length} tasks completed`;
+    const productivityLabel = `${completedTasks.length} of ${tasks.length} tasks completed`;
 
     const averageCompletionTime =
       completedTasks.length === 0
@@ -102,6 +110,55 @@ export default function useAnalytics() {
             }, 0) / completedTasks.length
           );
 
+    /* ================= My Analytics ================= */
+
+    const assignedStatus = STATUSES.map((status) => ({
+      status: STATUS_LABELS[status],
+      tasks: tasks.filter(
+        (t) =>
+          t.assignedToId === user?.id &&
+          t.status === status
+      ).length,
+    }));
+
+    const createdStatus = STATUSES.map((status) => ({
+      status: STATUS_LABELS[status],
+      tasks: tasks.filter(
+        (t) =>
+          t.creatorId === user?.id &&
+          t.status === status
+      ).length,
+    }));
+
+    const weeklyAssignedVsCreated = Array.from(
+      { length: 7 },
+      (_, i) => {
+        const day = new Date();
+
+        day.setDate(now.getDate() - (6 - i));
+
+        return {
+          day: day.toLocaleDateString("en-US", {
+            weekday: "short",
+          }),
+
+          assigned: tasks.filter(
+            (task) =>
+              task.assignedToId === user?.id &&
+              isSameDay(task.createdAt, day)
+          ).length,
+
+          created: tasks.filter(
+            (task) =>
+              task.creatorId === user?.id &&
+              isSameDay(task.createdAt, day)
+          ).length,
+        };
+      }
+    );
+
+    /* ================= Workspace Analytics ================= */
+
     const weeklyCompletion = Array.from(
       { length: 7 },
       (_, i) => {
@@ -114,66 +171,48 @@ export default function useAnalytics() {
             weekday: "short",
           }),
 
-          completed: completedTasks.filter((task) => {
-            const completed = new Date(
-              task.completedAt!
-            );
-
-            return (
-              completed.getDate() === day.getDate() &&
-              completed.getMonth() === day.getMonth() &&
-              completed.getFullYear() ===
-                day.getFullYear()
-            );
-          }).length,
+          completed: completedTasks.filter((task) =>
+            isSameDay(task.completedAt!, day)
+          ).length,
         };
       }
     );
 
-    const priorityChart = [
-      {
-        name: "Low",
-        value: tasks.filter(
-          (t) => t.priority === "LOW"
-        ).length,
-      },
-      {
-        name: "Medium",
-        value: tasks.filter(
-          (t) => t.priority === "MEDIUM"
-        ).length,
-      },
-      {
-        name: "High",
-        value: tasks.filter(
-          (t) => t.priority === "HIGH"
-        ).length,
-      },
-      {
-        name: "Urgent",
-        value: tasks.filter(
-          (t) => t.priority === "URGENT"
-        ).length,
-      },
-    ];
-    const workflowOverview = [
-      {
-        name: "To Do",
-        value: tasks.filter((t) => t.status === "TODO").length,
-      },
-      {
-        name: "In Progress",
-        value: tasks.filter((t) => t.status === "IN_PROGRESS").length,
-      },
-      {
-        name: "Review",
-        value: tasks.filter((t) => t.status === "REVIEW").length,
-      },
-      {
-        name: "Completed",
-        value: tasks.filter((t) => t.status === "COMPLETED").length,
-      },
-    ];
+    const priorityChart = PRIORITIES.map((priority) => ({
+      name:
+        priority.charAt(0) +
+        priority.slice(1).toLowerCase(),
+
+      value: tasks.filter(
+        (t) => t.priority === priority
+      ).length,
+    }));
+
+    const completionByPriority = PRIORITIES.map(
+      (priority) => {
+        const all = tasks.filter(
+          (t) => t.priority === priority
+        );
+
+        const completed = all.filter(
+          (t) => t.status === "COMPLETED"
+        );
+
+        return {
+          priority:
+            priority.charAt(0) +
+            priority.slice(1).toLowerCase(),
+
+          rate:
+            all.length === 0
+              ? 0
+              : Math.round(
+                  (completed.length / all.length) * 100
+                ),
+        };
+      }
+    );
+
     return {
       productivityScore,
       productivityLabel,
@@ -181,15 +220,15 @@ export default function useAnalytics() {
       completedThisWeek,
       overdueRate,
 
+      assignedStatus,
+      createdStatus,
+      weeklyAssignedVsCreated,
+
       weeklyCompletion,
-
       priorityChart,
-
       completionByPriority,
-      workflowOverview,
-
     };
-  }, [tasks]);
+  }, [tasks, user]);
 
   return {
     loading: isLoading,
