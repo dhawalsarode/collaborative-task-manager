@@ -185,7 +185,7 @@ export default function NotificationBell() {
               py-4
             "
           >
-            <h3 className="font-semibold">
+            <h3 className="font-semibold text-slate-900 dark:text-white">
               Notifications
               {unread > 0 && (
                 <span className="ml-2 rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300">
@@ -234,7 +234,7 @@ export default function NotificationBell() {
                   You're all caught up
                 </p>
 
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   No new notifications.
                 </p>
 
@@ -266,10 +266,10 @@ export default function NotificationBell() {
                     duration-200
                   hover:bg-slate-50
                     hover:translate-x-1
-                    dark:hover:bg-slate-800
+                    dark:hover:bg-slate-800/70
                     ${
                       !n.read
-                        ? "bg-indigo-50 dark:bg-indigo-950/30"
+                        ? "bg-indigo-50 dark:bg-indigo-900/20"
                         : ""
                     }
                   `}
@@ -291,11 +291,11 @@ export default function NotificationBell() {
 
                 <div className="flex-1">
 
-                  <p className="text-sm font-medium">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                     {n.message}
                   </p>
 
-                  <p className="mt-2 text-xs text-slate-500">
+                  <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
                     {timeAgo(n.createdAt)}
                   </p>
 

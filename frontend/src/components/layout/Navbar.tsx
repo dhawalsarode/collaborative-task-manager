@@ -95,7 +95,7 @@ export default function Navbar({
 
   {/* Desktop Search */}
 
-  <div className="relative hidden md:block">
+  {/* <div className="relative hidden md:block">
 
     <Search
       size={18}
@@ -121,7 +121,7 @@ export default function Navbar({
       "
     />
 
-  </div>
+  </div> */}
 
   <NotificationBell />
 
