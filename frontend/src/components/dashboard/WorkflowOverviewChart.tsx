@@ -8,7 +8,8 @@ import {
   YAxis,
 } from "recharts";
 
-import ChartCard from "../dashboard/ChartCard";
+import ChartCard from "./ChartCard";
+import ChartTooltip from "../analytics/ChartTooltip";
 
 interface Props {
   data: {
@@ -70,7 +71,9 @@ export default function AnalyticsChart({ data }: Props) {
             tick={{ fontSize: 12 }}
           />
 
-          <Tooltip />
+          <Tooltip
+            content={<ChartTooltip />}
+          />
 
           <Area
             type="monotone"
