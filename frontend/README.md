@@ -1,73 +1,180 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🚀 Syncora
 
-Currently, two official plugins are available:
+### Collaborative Workspace & Task Management Platform
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p>
+A modern full-stack project focused on productivity, collaboration, and developer experience.
+Built with React, TypeScript, Express, Prisma, PostgreSQL, and Socket.IO.
+</p>
 
-## React Compiler
+<p>
+<a href="https://syncora-work.vercel.app"><img src="https://img.shields.io/badge/🌐_Live_Demo-Syncora-6C63FF?style=for-the-badge"></a>
+<a href="https://syncora-asng.onrender.com/health"><img src="https://img.shields.io/badge/⚡_Backend-Healthy-00C48C?style=for-the-badge"></a>
+<a href="https://github.com/dhawalsarode/syncora"><img src="https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge"></a>
+</p>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,nodejs,express,postgres,prisma,socketio,git"/>
 
-## Expanding the ESLint configuration
+</div>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# 🎬 Product Walkthrough
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+> **Coming Soon**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Replace this section later with:
+
+```md
+[![Watch Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://youtu.be/YOUR_VIDEO_ID)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# ✨ Why Syncora?
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Syncora is a production-style collaborative workspace inspired by modern project management tools. It focuses on clean architecture, responsive UI, real-time communication, and a polished user experience rather than being a simple CRUD application.
+
+## Highlights
+
+- 🔐 JWT Authentication
+- 📋 Kanban Board
+- 🔄 Drag & Drop
+- 🔔 Real-time Notifications (Socket.IO)
+- 📊 Analytics Dashboard
+- 🌙 Light & Dark Mode
+- 🔎 Search
+- 👤 Profile Settings
+- 📱 Responsive Design
+- ⚡ React Query
+- 🗄 Prisma ORM + PostgreSQL
+
+---
+
+# 📸 Screenshots
+
+## Authentication
+
+| Login | Register |
+|---|---|
+| ![](screenshots/login.png) | ![](screenshots/register.png) |
+
+## Dashboard
+
+| Light | Dark |
+|---|---|
+| ![](screenshots/dashboard-light.png) | ![](screenshots/dashboard-dark.png) |
+
+## Kanban
+
+| Light | Dark |
+|---|---|
+| ![](screenshots/kanban-light.png) | ![](screenshots/kanban-dark.png) |
+
+## Analytics
+
+| Light | Dark |
+|---|---|
+| ![](screenshots/analytics-light.png) | ![](screenshots/analytics-dark.png) |
+
+## Task Details
+
+![](screenshots/task-details.png)
+
+## Notifications
+
+![](screenshots/notifications-panel.png)
+
+## Profile
+
+![](screenshots/profile-settings.png)
+
+---
+
+# 🏗️ Architecture
+
+```text
+React + TypeScript
+        │
+React Query + Router
+        │
+ REST API
+        │
+Express.js + Prisma
+   │            │
+Socket.IO   PostgreSQL
+                 │
+              Neon DB
 ```
+
+---
+
+# 🛠️ Tech Stack
+
+### Frontend
+
+React • TypeScript • Tailwind CSS • Vite • React Query • React Router • Recharts
+
+### Backend
+
+Node.js • Express.js • Prisma ORM • PostgreSQL • JWT • Socket.IO
+
+### Deployment
+
+- Vercel
+- Render
+- Neon PostgreSQL
+
+---
+
+# 📁 Project Structure
+
+```text
+Syncora/
+├── frontend/
+├── backend/
+├── screenshots/
+└── README.md
+```
+
+---
+
+# 🚀 Live Deployment
+
+| Service | Link |
+|---|---|
+| Frontend | https://syncora-work.vercel.app |
+| Backend | https://syncora-asng.onrender.com |
+
+---
+
+# 🔮 Roadmap
+
+- Team workspaces
+- Invitations
+- File attachments
+- Calendar view
+- Email notifications
+- AI-powered task summaries
+- Activity timeline
+
+---
+
+# 👨‍💻 About the Developer
+
+**Dhawal Sarode**
+
+- GitHub: https://github.com/dhawalsarode
+- LinkedIn: *(Add your profile URL)*
+
+---
+
+<div align="center">
+
+### ⭐ If you enjoyed this project, consider starring the repository.
+
+Designed and developed by Dhawal Sarode.
+
+</div>
