@@ -167,7 +167,7 @@ Syncora/
 **Dhawal Sarode**
 
 - GitHub: https://github.com/dhawalsarode
-- LinkedIn: *(Add your profile URL)*
+- LinkedIn: https://www.linkedin.com/in/dhawal-sarode/
 
 ---
 
