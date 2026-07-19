@@ -130,6 +130,46 @@ export default function useAnalytics() {
       ).length,
     }));
 
+    const todayAssignedVsCreated = Array.from(
+      { length: 8 },
+      (_, i) => {
+        const hour = i * 3;
+
+        const start = new Date(now);
+        start.setHours(hour, 0, 0, 0);
+
+        const end = new Date(start);
+        end.setHours(hour + 3);
+
+        return {
+          hour: start.toLocaleTimeString("en-US", {
+            hour: "numeric",
+            hour12: true,
+          }),
+
+          assigned: tasks.filter((task) => {
+            if (task.assignedToId !== user?.id) return false;
+
+            if (!task.createdAt) return false;
+
+            const created = new Date(task.createdAt);
+
+            return created >= start && created < end;
+          }).length,
+
+          created: tasks.filter((task) => {
+            if (task.creatorId !== user?.id) return false;
+
+            if (!task.createdAt) return false;
+
+            const created = new Date(task.createdAt);
+
+            return created >= start && created < end;
+          }).length,
+        };
+      }
+    );
+
     const weeklyAssignedVsCreated = Array.from(
       { length: 7 },
       (_, i) => {
@@ -222,6 +262,7 @@ export default function useAnalytics() {
 
       assignedStatus,
       createdStatus,
+      todayAssignedVsCreated,
       weeklyAssignedVsCreated,
 
       weeklyCompletion,

@@ -2,11 +2,12 @@ import useDashboard from "../hooks/useDashboard";
 import { Sparkles } from "lucide-react";
 
 import StatsGrid from "../components/dashboard/StatsGrid";
-import AnalyticsChart from "../components/dashboard/AnalyticsChart";
 import MyWorkspaceCard from "../components/dashboard/MyWorkspaceCard";
 import { useAuth } from "../auth/AuthContext";
 import RecentTasks from "../components/dashboard/RecentTasks";
 import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";
+import TodayAssignedVsCreated from "../components/dashboard/TodayAssignedVsCreated";
+import useAnalytics from "../hooks/useAnalytics";
 
 const DashboardPage = () => {
   const { user } = useAuth();
@@ -18,14 +19,15 @@ const DashboardPage = () => {
       : hour < 17
       ? "Good Afternoon"
       : "Good Evening";
+      
   const {
     loading,
-    tasks,
     stats,
-    statusChart,
     recentTasks,
     upcomingTasks,
   } = useDashboard();
+
+  const analytics = useAnalytics();
 
   if (loading) {
     return (
@@ -68,16 +70,16 @@ const DashboardPage = () => {
 
       <section className="grid gap-6 xl:grid-cols-2">
 
-      <MyWorkspaceCard
-        assigned={stats.assignedToMe}
-        completed={stats.completedByMe}
-        created={stats.createdByMe}
-        closed={stats.closedTasks}
-      />
+        <MyWorkspaceCard
+          assigned={stats.assignedToMe}
+          completed={stats.completedByMe}
+          created={stats.createdByMe}
+          closed={stats.closedTasks}
+        />
 
-      <AnalyticsChart
-        data={statusChart}
-      />
+        <TodayAssignedVsCreated
+          data={analytics.todayAssignedVsCreated}
+        />
 
       </section>
 

@@ -10,34 +10,55 @@ import {
 } from "recharts";
 
 import AnalyticsCard from "../analytics/AnalyticsCard";
+import ChartTooltip from "../analytics/ChartTooltip";
 
-const mockData = [
-  { hour: "12 AM", assigned: 0, created: 0 },
-  { hour: "3 AM", assigned: 0, created: 0 },
-  { hour: "6 AM", assigned: 0, created: 0 },
-  { hour: "9 AM", assigned: 1, created: 0 },
-  { hour: "12 PM", assigned: 2, created: 1 },
-  { hour: "3 PM", assigned: 1, created: 2 },
-  { hour: "6 PM", assigned: 2, created: 1 },
-  { hour: "9 PM", assigned: 0, created: 1 },
-];
+import { CHART_CONFIG } from "../../constants/chart";
+import { getYAxisConfig } from "../../utils/chartUtils";
 
-export default function TodayAssignedVsCreated() {
+interface TodayAssignedVsCreatedData {
+  hour: string;
+  assigned: number;
+  created: number;
+}
+
+interface Props {
+  data: TodayAssignedVsCreatedData[];
+}
+
+export default function TodayAssignedVsCreated({
+  data,
+}: Props) {
+  const yAxis = getYAxisConfig([
+    ...data.map((d) => d.assigned),
+    ...data.map((d) => d.created),
+  ]);
+
   return (
     <AnalyticsCard
       title="Today's Performance"
       subtitle="Assigned vs created tasks during the last 24 hours"
     >
-      <div className="h-72">
+      <div className="h-full">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={mockData}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <BarChart
+            data={data}
+            margin={CHART_CONFIG.margin}
+          >
+            <CartesianGrid {...CHART_CONFIG.grid} />
 
-            <XAxis dataKey="hour" />
+            <XAxis
+              dataKey="hour"
+              tick={CHART_CONFIG.tick}
+            />
 
-            <YAxis allowDecimals={false} />
+            <YAxis
+              domain={yAxis.domain}
+              ticks={yAxis.ticks}
+              allowDecimals={false}
+              tick={CHART_CONFIG.tick}
+            />
 
-            <Tooltip />
+            <Tooltip content={<ChartTooltip />} />
 
             <Legend />
 
@@ -45,14 +66,16 @@ export default function TodayAssignedVsCreated() {
               dataKey="assigned"
               name="Assigned"
               fill="#10B981"
-              radius={[4, 4, 0, 0]}
+              radius={CHART_CONFIG.bar.radius}
+              animationDuration={CHART_CONFIG.animation.duration}
             />
 
             <Bar
               dataKey="created"
               name="Created"
               fill="#6366F1"
-              radius={[4, 4, 0, 0]}
+              radius={CHART_CONFIG.bar.radius}
+              animationDuration={CHART_CONFIG.animation.duration}
             />
           </BarChart>
         </ResponsiveContainer>

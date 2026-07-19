@@ -62,13 +62,22 @@ export default function MyWorkspaceCard({
 
             <div
                 title="Tasks currently assigned to you."
-                className="cursor-help"
-                >
-                <Info
-                    size={15}
-                    className="text-slate-400"
-                />
-            </div>
+                  className="
+                        flex h-5 w-5 cursor-help items-center justify-center
+                        rounded-full
+                        bg-slate-100
+                        text-slate-500
+                        transition-colors
+                        hover:bg-violet-100
+                        hover:text-violet-600
+                        dark:bg-slate-800
+                        dark:text-slate-400
+                        dark:hover:bg-violet-900/30
+                        dark:hover:text-violet-400
+                      "
+                    >
+                    <Info size={12} strokeWidth={2.25} />
+             </div>
 
           </div>
 
@@ -89,13 +98,22 @@ export default function MyWorkspaceCard({
 
             <div
                 title="Tasks assigned to you that you have completed."
-                className="cursor-help"
-            >
-                <Info
-                size={15}
-                className="text-slate-400"
-                />
-            </div>
+                  className="
+                        flex h-5 w-5 cursor-help items-center justify-center
+                        rounded-full
+                        bg-slate-100
+                        text-slate-500
+                        transition-colors
+                        hover:bg-violet-100
+                        hover:text-violet-600
+                        dark:bg-slate-800
+                        dark:text-slate-400
+                        dark:hover:bg-violet-900/30
+                        dark:hover:text-violet-400
+                      "
+                    >
+                    <Info size={12} strokeWidth={2.25} />
+             </div>
 
             </div>
 
@@ -117,13 +135,22 @@ export default function MyWorkspaceCard({
 
             <div
                 title="Tasks created by you."
-                className="cursor-help"
-                >
-                <Info
-                    size={15}
-                    className="text-slate-400"
-                />
-                </div>
+                  className="
+                        flex h-5 w-5 cursor-help items-center justify-center
+                        rounded-full
+                        bg-slate-100
+                        text-slate-500
+                        transition-colors
+                        hover:bg-violet-100
+                        hover:text-violet-600
+                        dark:bg-slate-800
+                        dark:text-slate-400
+                        dark:hover:bg-violet-900/30
+                        dark:hover:text-violet-400
+                      "
+                    >
+                    <Info size={12} strokeWidth={2.25} />
+             </div>
 
           </div>
 
@@ -145,13 +172,22 @@ export default function MyWorkspaceCard({
 
             <div
                 title="Tasks created by you that have been completed by the assignee."
-                className="cursor-help"
-                >
-                <Info
-                    size={15}
-                    className="text-slate-400"
-                />
-                </div>
+                  className="
+                        flex h-5 w-5 cursor-help items-center justify-center
+                        rounded-full
+                        bg-slate-100
+                        text-slate-500
+                        transition-colors
+                        hover:bg-violet-100
+                        hover:text-violet-600
+                        dark:bg-slate-800
+                        dark:text-slate-400
+                        dark:hover:bg-violet-900/30
+                        dark:hover:text-violet-400
+                      "
+                    >
+                    <Info size={12} strokeWidth={2.25} />
+             </div>
 
           </div>
 
