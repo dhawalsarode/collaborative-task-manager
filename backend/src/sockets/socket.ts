@@ -7,13 +7,14 @@ let io: Server;
 
 const server = http.createServer(app);
 
+const allowedOrigins: string[] = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL,
+].filter((origin): origin is string => Boolean(origin));
+
 io = new Server(server, {
   cors: {
-    origin: [
-      "http://localhost:5173",
-      "https://collaborative-task-manager-ll1q.vercel.app",
-      "https://collaborative-task-manager-five-self.vercel.app",
-    ],
+    origin: allowedOrigins,
     credentials: true,
   },
 });

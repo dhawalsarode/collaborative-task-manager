@@ -10,11 +10,10 @@ const app = express();
 
 /* ================= CORS CONFIG ================= */
 
-const allowedOrigins = [
+const allowedOrigins: string[] = [
   "http://localhost:5173",
-  "https://collaborative-task-manager-ll1q.vercel.app",
-  "https://collaborative-task-manager-five-self.vercel.app",
-];
+  process.env.FRONTEND_URL,
+].filter((origin): origin is string => Boolean(origin));
 
 app.use(
   cors({

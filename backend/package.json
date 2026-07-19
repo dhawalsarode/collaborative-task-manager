@@ -5,7 +5,7 @@
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
-  "dev": "npm run build && node dist/server.js",
+  "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
   "build": "prisma generate && prisma migrate deploy && tsc",
   "start": "node dist/server.js"
 },
