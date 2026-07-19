@@ -1,145 +1,212 @@
+::: {align="center"}
+# 🚀 Syncora
 
-# Collaborative Task Manager
+### Collaborative Workspace & Task Management Platform
 
-A full-stack **Collaborative Task Management** application inspired by modern tools like Trello and Jira.  
-It supports **real-time collaboration**, **task assignment**, **drag-and-drop Kanban boards**, **notifications**, and **dark/light mode**.
-
----
-
-## 🚀 Live Demo
-
-### Frontend (Vercel)
-👉 https://collaborative-task-manager-ll1q.vercel.app
-
-### Backend API (Render)
-👉 https://collaborative-task-manager-backend-gve1.onrender.com
-
-> ℹ️ These are the **current production links**.  
-> Future GitHub pushes will automatically redeploy to the same URLs.
-
----
-
-## 🧩 Features
-
-### ✅ Authentication
-- User registration & login
-- Secure JWT-based authentication (HTTP-only cookies)
-- Persistent sessions
-
-### ✅ Task Management (Full CRUD)
-- Create, edit, delete tasks
-- Assign tasks to registered users
-- Set **priority**: Low / Medium / High / Urgent
-- Set **status**: To Do / In Progress / Review / Completed
-- Due date with **date & time**
-- Overdue task detection
-
-### ✅ Kanban Board
-- Drag & drop tasks between columns
-- Optimistic UI updates
-- Real-time sync across users
-
-### ✅ Notifications
-- In-app notifications when:
-  - A task is assigned to you
-  - A task is updated
-- Live updates using **Socket.IO**
-- Notification panel with timestamps
-
-### ✅ UI / UX
-- Clean professional UI
-- Dark & Light mode toggle
-- Responsive layout
-- Polished icons (Lucide React)
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **React + TypeScript**
-- **Vite**
-- **Tailwind CSS**
-- **React Query (TanStack)**
-- **Socket.IO Client**
-- **React Hook Form + Zod**
-- **Lucide React Icons**
-
-### Backend
-- **Node.js + Express**
-- **TypeScript**
-- **Prisma ORM**
-- **PostgreSQL**
-- **JWT Authentication**
-- **Socket.IO**
-
-### Deployment
-- **Frontend**: Vercel
-- **Backend**: Render
-- **Database**: PostgreSQL (Render)
-
----
-
-## 📸 Screenshots
-
-Screenshots are available in the `/screenshots` folder:
-
-- `dashboard-light.png`
-- `dashboard-dark.png`
-
----
-
-## 📂 Project Structure
-
+```{=html}
+<p>
 ```
-collaborative-task-manager/
-├── frontend/        # React frontend
-├── backend/         # Express + Prisma backend
-├── screenshots/     # UI screenshots
-└── README.md
+A modern full-stack productivity platform featuring real-time
+collaboration, Kanban workflow management, analytics dashboards,
+notifications, and a polished responsive interface.
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<a href="https://syncora-work.vercel.app">`{=html}`<img src="https://img.shields.io/badge/🌐_Live_Demo-Visit-5B5BD6?style=for-the-badge"/>`{=html}`</a>`{=html}
+`<a href="https://syncora-asng.onrender.com/health">`{=html}`<img src="https://img.shields.io/badge/⚡_Backend-Healthy-00C48C?style=for-the-badge"/>`{=html}`</a>`{=html}
+
+```{=html}
+</p>
+```
+```{=html}
+<p>
+```
+`<img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,nodejs,express,postgres,prisma,socketio,git"/>`{=html}
+
+```{=html}
+</p>
+```
+:::
+
+------------------------------------------------------------------------
+
+# 🎥 Product Walkthrough
+
+> **Demo video coming soon**
+
+After recording your walkthrough:
+
+1.  Upload it to **YouTube (recommended)**.
+2.  Replace this section with:
+
+``` md
+[![Watch Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://youtu.be/YOUR_VIDEO_ID)
 ```
 
----
+------------------------------------------------------------------------
 
-## ⚙️ Local Development
+# ✨ Highlights
 
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/dhawalsarode/collaborative-task-manager.git
-cd collaborative-task-manager
+-   🔐 Secure JWT Authentication
+-   📋 Kanban Task Management
+-   ⚡ Real-time Notifications (Socket.IO)
+-   📈 Analytics Dashboard
+-   🌙 Light & Dark Themes
+-   🔍 Search & Filtering
+-   📱 Responsive Design
+-   🗄 PostgreSQL + Prisma ORM
+-   ☁️ Production Deployment (Vercel + Render + Neon)
+
+------------------------------------------------------------------------
+
+# 📸 Application Preview
+
+## Authentication
+
+  Login                        Register
+  ---------------------------- -------------------------------
+  ![](screenshots/login.png)   ![](screenshots/register.png)
+
+------------------------------------------------------------------------
+
+## Dashboard
+
+  ----------------------------------------------------------------------------
+  Light                                  Dark
+  -------------------------------------- -------------------------------------
+  ![](screenshots/dashboard-light.png)   ![](screenshots/dashboard-dark.png)
+
+  ----------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## Kanban Workspace
+
+  Light                               Dark
+  ----------------------------------- ----------------------------------
+  ![](screenshots/kanban-light.png)   ![](screenshots/kanban-dark.png)
+
+------------------------------------------------------------------------
+
+## Analytics
+
+  ----------------------------------------------------------------------------
+  Light                                  Dark
+  -------------------------------------- -------------------------------------
+  ![](screenshots/analytics-light.png)   ![](screenshots/analytics-dark.png)
+
+  ----------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## Task Details
+
+![](screenshots/task-details.png)
+
+------------------------------------------------------------------------
+
+## Notifications
+
+![](screenshots/notifications-panel.png)
+
+------------------------------------------------------------------------
+
+## Profile Settings
+
+![](screenshots/profile-settings.png)
+
+------------------------------------------------------------------------
+
+# 🏗 System Architecture
+
+``` text
+                 React + TypeScript
+                         │
+              React Query + Router
+                         │
+                    REST API
+                         │
+        Express.js + Prisma ORM
+               │                 │
+        PostgreSQL          Socket.IO
+               │                 │
+            Neon DB      Real-time Events
 ```
 
-### 2️⃣ Frontend setup
-```bash
-cd frontend
-npm install
-npm run dev
+------------------------------------------------------------------------
+
+# 🧰 Technology Stack
+
+## Frontend
+
+`<img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite"/>`{=html}
+
+React • TypeScript • Tailwind CSS • Vite • React Query • React Router •
+Recharts
+
+## Backend
+
+`<img src="https://skillicons.dev/icons?i=nodejs,express,postgres,prisma"/>`{=html}
+
+Node.js • Express • Prisma ORM • PostgreSQL • JWT • Socket.IO
+
+## Deployment
+
+-   ▲ Vercel
+-   🚀 Render
+-   🐘 Neon PostgreSQL
+
+------------------------------------------------------------------------
+
+# 📂 Project Structure
+
+``` text
+Syncora
+├── frontend/
+├── backend/
+├── screenshots/
+├── README.md
+└── LICENSE
 ```
 
-### 3️⃣ Backend setup
-```bash
-cd backend
-npm install
-npm run dev
-```
+------------------------------------------------------------------------
 
-> Make sure to configure `.env` files for backend (DB, JWT, etc.)
+# 🚀 Live Deployment
 
----
+  Service    URL
+  ---------- -----------------------------------
+  Frontend   https://syncora-work.vercel.app
+  Backend    https://syncora-asng.onrender.com
 
-## 🧪 Status
+------------------------------------------------------------------------
 
-✅ Core features complete  
-✅ Production deployed  
+# 🌱 Future Enhancements
 
----
+-   Team collaboration
+-   Workspace invitations
+-   Calendar integration
+-   File attachments
+-   Email notifications
+-   AI task summaries
+-   Activity timeline
 
-## 👨‍💻 Author
+------------------------------------------------------------------------
 
-**Dhawal Sarode**  
-- GitHub: https://github.com/dhawalsarode  
----
+# 👨‍💻 Developer
 
-## 📄 License
+**Dhawal Sarode**
 
-This project is licensed under the **MIT License**.
+GitHub: https://github.com/dhawalsarode
+
+LinkedIn: *(Add your profile URL)*
+
+------------------------------------------------------------------------
+
+::: {align="center"}
+### ⭐ If you like Syncora, consider giving the repository a star.
+
+Built with ❤️ using React, TypeScript, Express and PostgreSQL.
+:::
